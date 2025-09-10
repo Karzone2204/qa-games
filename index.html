@@ -602,6 +602,72 @@
             .memory-grid { grid-template-columns: repeat(3, 1fr); }
             .nav-tabs { flex-direction: column; align-items: center; }
         }
+
+        /* Chat UI */
+        .chat-header {
+        display:flex; align-items:center; justify-content:space-between;
+        padding:12px 16px; margin-bottom:10px;
+        background: rgba(255,255,255,0.12); border-radius:14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .chat-header-left { display:flex; gap:10px; align-items:center; }
+        .chat-avatar { font-size:1.6em; }
+        .chat-avatar.small { font-size:1.2em; }
+        .chat-title { font-weight:700; letter-spacing:.3px; }
+        .chat-status { font-size:.85em; opacity:.85; display:flex; align-items:center; gap:6px; }
+        .status-dot { width:8px; height:8px; border-radius:50%; background:#4CAF50; display:inline-block; box-shadow:0 0 8px #4CAF50; }
+        .chat-reset-btn { padding:6px 12px; border-radius:10px; font-size:.9em; }
+
+        .chat-log {
+        height: 330px; overflow-y: auto; padding:12px;
+        background: rgba(255,255,255,0.08);
+        border-radius:14px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        display:flex; flex-direction:column; gap:10px;
+        }
+
+        /* Message bubbles */
+        .msg { display:flex; gap:10px; max-width:85%; }
+        .msg .bubble {
+        padding:10px 12px; border-radius:14px; line-height:1.35;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .msg.user { align-self:flex-end; flex-direction: row-reverse; }
+        .msg.user .bubble { background: rgba(255,255,255,0.9); color:#333; }
+        .msg.bot .bubble { background: rgba(255,255,255,0.2); color:#fff; }
+        .msg .meta { font-size:.75em; opacity:.75; margin-top:4px; }
+        .msg.user .meta { text-align:right; }
+
+        .typing-row { display:flex; align-items:center; gap:8px; margin:8px 0 4px; }
+        .typing-bubble {
+        display:inline-flex; gap:6px; padding:10px 12px;
+        background: rgba(255,255,255,0.2); border-radius:14px;
+        }
+        .typing-bubble .dot {
+        width:6px; height:6px; border-radius:50%; background:white; opacity:.7;
+        animation: typing 1.2s infinite;
+        }
+        .typing-bubble .dot:nth-child(2){ animation-delay: .15s;}
+        .typing-bubble .dot:nth-child(3){ animation-delay: .3s;}
+        @keyframes typing { 0%,60%,100%{ transform: translateY(0)} 30%{ transform: translateY(-4px) } }
+
+        .chat-input-row { margin-top:10px; }
+        .suggestions { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+        .chip {
+        background: rgba(255,255,255,0.18); border:none; padding:6px 12px; border-radius:20px;
+        cursor:pointer; transition: transform .15s; font-size:.9em;
+        }
+        .chip:hover { transform: translateY(-1px); background: rgba(255,255,255,0.28); }
+
+        .chat-input-wrap {
+        display:flex; gap:8px; align-items:center;
+        background: rgba(255,255,255,0.12); border-radius:30px; padding:6px 6px 6px 12px;
+        }
+        #chatInput {
+        flex:1; padding:10px 6px; font-size:1.05em;
+        border:none; background:transparent; color:white; outline:none;
+        }
+        #chatSendBtn { padding:10px 18px; border-radius:22px; }
+
     </style>
 </head>
 <body>
@@ -705,6 +771,41 @@
         </div>
     </div>
 
+    <!-- Chatbot Game -->
+    <div id="chatbot" class="game-container">
+    <div class="chat-header">
+        <div class="chat-header-left">
+        <span class="chat-avatar">🤖</span>
+        <div>
+            <div class="chat-title">QA Bot</div>
+            <div class="chat-status"><span class="status-dot"></span> online</div>
+        </div>
+        </div>
+        <button class="chat-reset-btn" onclick="resetChat()">Clear</button>
+    </div>
+
+    <div id="chatLog" class="chat-log" aria-live="polite"></div>
+
+    <div id="typingRow" class="typing-row" style="display:none;">
+        <span class="chat-avatar small">🤖</span>
+        <div class="typing-bubble">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+    </div>
+
+    <div class="chat-input-row">
+        <div class="suggestions" id="chatSuggestions">
+        <button type="button" class="chip" onclick="quickAsk('help')">help</button>
+        <button type="button" class="chip" onclick="quickAsk('tell a joke')">tell a joke</button>
+        <button type="button" class="chip" onclick="quickAsk('flip a coin')">flip a coin</button>
+        <button type="button" class="chip" onclick="quickAsk('QA tips for flaky tests')">QA tips</button>
+        </div>
+        <div class="chat-input-wrap">
+        <input id="chatInput" type="text" placeholder="Type a message..." autocomplete="off">
+        <button id="chatSendBtn" onclick="sendChat()">Send</button>
+        </div>
+    </div>
+    </div>
     <!-- Tournament Section -->
     <div id="tournament" class="content-section">
         <h2 style="text-align: center; color: #ffd700;">🏆 Weekly Tournament 🏆</h2>
@@ -854,16 +955,21 @@
         // Navigation
         function showSection(section) {
             playSound('click');
-            
+
             document.querySelectorAll('.content-section').forEach(sec => {
                 sec.classList.remove('active');
             });
             document.querySelectorAll('.nav-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
-            document.getElementById(section).classList.add('active');
-            event.currentTarget.classList.add('active');
+
+            const targetSection = document.getElementById(section);
+            if (targetSection) targetSection.classList.add('active');
+
+            // Only add 'active' to the clicked tab if an event exists
+            if (typeof event !== 'undefined' && event?.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
         }
 
         // Game Selection
@@ -876,7 +982,7 @@
             }
 
             playSound('click');
-            
+
             // Hide all games
             document.querySelectorAll('.game-container').forEach(container => {
                 container.classList.remove('active');
@@ -887,15 +993,34 @@
                 card.classList.remove('active');
             });
 
+            const container = document.getElementById(game);
+
+            // If the container doesn't exist yet, show a friendly message and exit cleanly
+            if (!container) {
+                // Re-highlight the clicked card if we can detect it
+                if (typeof event !== 'undefined' && event?.currentTarget) {
+                    event.currentTarget.classList.add('active');
+                }
+                alert('🚧 "' + (game === 'sudoku' ? 'Sudoku Master' :
+                                game === 'tictactoe' ? 'Tic Tac Toe' :
+                                game === 'chatbot' ? 'QA Bot Chat' : game)
+                    + '" is coming soon!');
+                return;
+            }
+
             // Show selected game
-            document.getElementById(game).classList.add('active');
-            event.currentTarget.classList.add('active');
+            container.classList.add('active');
+
+            // Highlight the clicked card if an event exists
+            if (typeof event !== 'undefined' && event?.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+
             currentGame = game;
 
-            // Initialize game
+            // Initialize game if needed
             if (game === 'memory') initMemoryGame();
         }
-
         // ============ BUG SMASHER GAME ============
         let bugScore = 0;
         let bugTime = 30;
@@ -905,119 +1030,160 @@
         let bugMissed = 0;
         let bugCombo = 1;
         let lastBugTime = 0;
+        // --- BUG SMASHER DIFFICULTIES ---
+        const DIFFICULTIES = [
+        { key: 'Easy',   spawnMs: 1200, lifetimeMs: 3000, missedLimit: 7, basePoints: 8,  comboWindowMs: 1200 },
+        { key: 'Normal', spawnMs: 1000, lifetimeMs: 2500, missedLimit: 5, basePoints: 10, comboWindowMs: 1000 },
+        { key: 'Hard',   spawnMs:  750, lifetimeMs: 2000, missedLimit: 4, basePoints: 12, comboWindowMs:  800 },
+        { key: 'Insane', spawnMs:  550, lifetimeMs: 1500, missedLimit: 3, basePoints: 15, comboWindowMs:  650 },
+        ];
+
+        let bugDifficultyIndex = parseInt(localStorage.getItem('bugDifficultyIndex') || '1', 10); // default: Normal
+        function currentDiff() { return DIFFICULTIES[bugDifficultyIndex] || DIFFICULTIES[1]; }
+
 
         function startBugGame() {
-            bugScore = 0;
-            bugTime = 30;
-            bugMissed = 0;
-            bugCombo = 1;
-            bugGameActive = true;
-            lastBugTime = Date.now();
-            
-            document.getElementById('bugScore').textContent = bugScore;
-            document.getElementById('bugTime').textContent = bugTime;
-            document.getElementById('bugCombo').textContent = bugCombo;
-            document.getElementById('bugMissed').textContent = '0/5';
-            document.getElementById('bugGameArea').innerHTML = '';
+        const diff = currentDiff();
 
-            playSound('click');
+        bugScore = 0;
+        bugTime = 30;
+        bugMissed = 0;
+        bugCombo = 1;
+        bugGameActive = true;
+        lastBugTime = Date.now();
 
-            bugInterval = setInterval(spawnBug, 1000);
-            bugTimerInterval = setInterval(() => {
-                bugTime--;
-                document.getElementById('bugTime').textContent = bugTime;
-                if (bugTime <= 0 || bugMissed >= 5) endBugGame();
-            }, 1000);
+        // reset scoreboard numbers
+        document.getElementById('bugScore').textContent = bugScore;
+        document.getElementById('bugTime').textContent = bugTime;
+        document.getElementById('bugCombo').textContent = bugCombo;
+
+        // number-only inside the span
+        const missedSpan = document.getElementById('bugMissed');
+        if (missedSpan) {
+            missedSpan.textContent = 0;
+            // ensure the trailing "/<limit>" lives outside the span and is correct
+            if (missedSpan.nextSibling && missedSpan.nextSibling.nodeType === Node.TEXT_NODE) {
+                missedSpan.nextSibling.nodeValue = `/${diff.missedLimit}`;
+            } else {
+                missedSpan.insertAdjacentText('afterend', `/${diff.missedLimit}`);
+            }
         }
+
+        document.getElementById('bugGameArea').innerHTML = '';
+
+        playSound('click');
+
+        clearInterval(bugInterval);
+        clearInterval(bugTimerInterval);
+
+        bugInterval = setInterval(spawnBug, diff.spawnMs);
+        bugTimerInterval = setInterval(() => {
+            bugTime--;
+            document.getElementById('bugTime').textContent = bugTime;
+            if (bugTime <= 0 || bugMissed >= diff.missedLimit) endBugGame();
+        }, 1000);
+
+        showAchievement('Bug Smasher', `Good luck on ${diff.key}!`);
+     }
 
         function spawnBug() {
-            if (!bugGameActive) return;
-            
-            const gameArea = document.getElementById('bugGameArea');
-            const bug = document.createElement('div');
-            bug.className = 'bug';
-            bug.textContent = ['🐛', '🦟', '🐜', '🕷️', '🦗', '🐞'][Math.floor(Math.random() * 6)];
-            
-            const maxX = gameArea.clientWidth - 50;
-            const maxY = gameArea.clientHeight - 50;
-            bug.style.left = Math.random() * maxX + 'px';
-            bug.style.top = Math.random() * maxY + 'px';
-            
-            bug.onclick = () => {
-                if (!bug.classList.contains('smashed')) {
-                    // Calculate combo
-                    const now = Date.now();
-                    if (now - lastBugTime < 1000) {
-                        bugCombo = Math.min(bugCombo + 0.5, 5);
-                    } else {
-                        bugCombo = Math.max(1, bugCombo - 0.5);
-                    }
-                    lastBugTime = now;
-                    
-                    bug.classList.add('smashed');
-                    const points = Math.floor(10 * bugCombo);
-                    bugScore += points;
-                    
-                    document.getElementById('bugScore').textContent = bugScore;
-                    document.getElementById('bugCombo').textContent = bugCombo.toFixed(1);
-                    
-                    // Show score popup
-                    const popup = document.createElement('div');
-                    popup.className = 'score-popup';
-                    popup.textContent = `+${points}`;
-                    popup.style.left = bug.style.left;
-                    popup.style.top = bug.style.top;
-                    gameArea.appendChild(popup);
-                    
-                    playSound('click');
-                    
-                    setTimeout(() => {
-                        bug.remove();
-                        popup.remove();
-                    }, 300);
+        if (!bugGameActive) return;
+
+        const diff = currentDiff();
+        const gameArea = document.getElementById('bugGameArea');
+        const bug = document.createElement('div');
+        bug.className = 'bug';
+        bug.textContent = ['🐛', '🦟', '🐜', '🕷️', '🦗', '🐞'][Math.floor(Math.random() * 6)];
+
+        const maxX = gameArea.clientWidth - 50;
+        const maxY = gameArea.clientHeight - 50;
+        bug.style.left = Math.random() * maxX + 'px';
+        bug.style.top  = Math.random() * maxY + 'px';
+
+        bug.onclick = () => {
+            if (!bug.classList.contains('smashed')) {
+                const now = Date.now();
+                if (now - lastBugTime < diff.comboWindowMs) {
+                    bugCombo = Math.min(bugCombo + 0.5, 5);
+                } else {
+                    bugCombo = Math.max(1, bugCombo - 0.5);
                 }
-            };
+                lastBugTime = now;
 
-            gameArea.appendChild(bug);
+                bug.classList.add('smashed');
+                const points = Math.floor(diff.basePoints * bugCombo);
+                bugScore += points;
 
-            setTimeout(() => {
-                if (bug.parentNode && !bug.classList.contains('smashed')) {
+                document.getElementById('bugScore').textContent = bugScore;
+                document.getElementById('bugCombo').textContent = bugCombo.toFixed(1);
+
+                const popup = document.createElement('div');
+                popup.className = 'score-popup';
+                popup.textContent = `+${points}`;
+                popup.style.left = bug.style.left;
+                popup.style.top  = bug.style.top;
+                gameArea.appendChild(popup);
+
+                playSound('click');
+
+                setTimeout(() => {
                     bug.remove();
-                    bugMissed++;
-                    bugCombo = Math.max(1, bugCombo - 1);
-                    document.getElementById('bugMissed').textContent = `${bugMissed}/5`;
-                    document.getElementById('bugCombo').textContent = bugCombo.toFixed(1);
-                    
-                    if (bugMissed >= 5) endBugGame();
-                }
-            }, 2500);
+                    popup.remove();
+                }, 300);
+            }
+        };
+
+        gameArea.appendChild(bug);
+
+        setTimeout(() => {
+            if (bug.parentNode && !bug.classList.contains('smashed')) {
+                bug.remove();
+                bugMissed++;
+                bugCombo = Math.max(1, bugCombo - 1);
+                document.getElementById('bugMissed').textContent = bugMissed;
+                document.getElementById('bugCombo').textContent = bugCombo.toFixed(1);
+
+                if (bugMissed >= diff.missedLimit) endBugGame();
+            }
+        }, diff.lifetimeMs);
         }
 
-        function endBugGame() {
-            bugGameActive = false;
-            clearInterval(bugInterval);
-            clearInterval(bugTimerInterval);
-            
-            saveScore('bugSmasher', bugScore);
-            updateStats(bugScore);
-            
-            if (bugScore > 500) {
-                showAchievement('Bug Master', 'Scored over 500 points!');
-                triggerConfetti();
-                playSound('win');
-            } else {
-                playSound('lose');
-            }
-            
-            setTimeout(() => {
-                alert(`🎮 Game Over!\n\nScore: ${bugScore} points\nCombo: x${bugCombo.toFixed(1)}`);
-            }, 100);
+    function endBugGame() {
+        const diff = currentDiff();
+        bugGameActive = false;
+        clearInterval(bugInterval);
+        clearInterval(bugTimerInterval);
+
+        saveScore('bugSmasher', bugScore);
+        updateStats(bugScore);
+
+        if (bugScore > 500) {
+            showAchievement('Bug Master', 'Scored over 500 points!');
+            triggerConfetti();
+            playSound('win');
+        } else {
+            playSound('lose');
         }
+
+        setTimeout(() => {
+            alert(`🎮 Game Over!
+            
+        Score: ${bugScore} points
+        Combo: x${bugCombo.toFixed(1)}
+        Difficulty: ${diff.key}`);
+            }, 100);
+      }
+
 
         function changeBugDifficulty() {
-            playSound('click');
-            alert('🎮 Difficulty modes coming soon! Stay tuned!');
+        playSound('click');
+        bugDifficultyIndex = (bugDifficultyIndex + 1) % DIFFICULTIES.length;
+        localStorage.setItem('bugDifficultyIndex', bugDifficultyIndex);
+
+        const diff = currentDiff();
+        showAchievement('Difficulty', `Mode: ${diff.key}`);
         }
+
 
         // ============ MEMORY GAME ============
         let memoryCards = [];
@@ -1051,7 +1217,7 @@
             memoryMatches = 0;
             memoryTime = 0;
             document.getElementById('memoryMoves').textContent = memoryMoves;
-            document.getElementById('memoryMatches').textContent = '0/8';
+            document.getElementById('memoryMatches').textContent = 0;
             document.getElementById('memoryTime').textContent = memoryTime;
             
             playSound('click');
@@ -1084,7 +1250,7 @@
                         flippedCards[0].classList.add('matched');
                         flippedCards[1].classList.add('matched');
                         memoryMatches++;
-                        document.getElementById('memoryMatches').textContent = `${memoryMatches}/8`;
+                        document.getElementById('memoryMatches').textContent = memoryMatches;
                         playSound('win');
                         
                         if (memoryMatches === 8) {
@@ -1238,6 +1404,298 @@
             scores[game] = scores[game].slice(0, 10);
             localStorage.setItem('qaScores', JSON.stringify(scores));
         }
-    </script>
+
+    // ======== CHATBOT 2.0 ========
+    let chatCount = 0;
+    let botBusy = false;
+    const CHAT_STORE_KEY = 'qaChatHistory';
+
+    function selectChatFocus() {
+    setTimeout(() => document.getElementById('chatInput')?.focus(), 100);
+    }
+
+    function quickAsk(text){ 
+    const input = document.getElementById('chatInput');
+    if (!input) return;
+    input.value = text;
+    sendChat();
+    }
+
+    // Add /play chips to the suggestions row (once)
+    function ensurePlayChips() {
+    const wrap = document.getElementById('chatSuggestions');
+    if (!wrap) return;
+
+    // Avoid duplicates if already added
+    if (wrap.querySelector('[data-chip-group="play"]')) return;
+
+    // Map: label → command
+    const playChips = [
+        { label: '/play memory',    cmd: '/play memory',    checkId: 'memory' },
+        { label: '/play bugs',      cmd: '/play bugs',      checkId: 'bugSmasher' },
+        { label: '/play tictactoe', cmd: '/play tictactoe', checkId: 'tictactoe' },
+        { label: '/play sudoku',    cmd: '/play sudoku',    checkId: 'sudoku' },
+    ];
+
+    playChips.forEach(({ label, cmd, checkId }) => {
+        // Only render chip if that game container (or future container) exists
+        if (!document.getElementById(checkId)) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chip';
+        btn.dataset.chipGroup = 'play';
+        btn.textContent = label;
+        btn.onclick = () => quickAsk(cmd);
+        wrap.appendChild(btn);
+    });
+    }
+
+    // Run once when DOM is ready
+    document.addEventListener('DOMContentLoaded', ensurePlayChips);
+
+    // Also ensure they show when opening the chatbot
+    const __origSelectGame_forPlay = selectGame;
+    selectGame = function(game) {
+    __origSelectGame_forPlay(game);
+    if (game === 'chatbot') ensurePlayChips();
+    };
+
+    function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+    function nowTime() {
+    const d = new Date(); 
+    return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    }
+    function persistMessage(who, text, ts){
+    const hist = JSON.parse(localStorage.getItem(CHAT_STORE_KEY) || '[]');
+    hist.push({who, text, ts});
+    localStorage.setItem(CHAT_STORE_KEY, JSON.stringify(hist.slice(-200)));
+    }
+    function restoreChat(){
+    const hist = JSON.parse(localStorage.getItem(CHAT_STORE_KEY) || '[]');
+    const log = document.getElementById('chatLog');
+    log.innerHTML = '';
+    hist.forEach(m => appendMessage(m.who, m.text, m.ts, false));
+    updateChatCounter();
+    scrollLogToBottom();
+    }
+    function resetChat(){
+    localStorage.removeItem(CHAT_STORE_KEY);
+    document.getElementById('chatLog').innerHTML = '';
+    chatCount = 0; updateChatCounter();
+    }
+
+    function appendMessage(who, text, ts = nowTime(), persist = true) {
+    const log = document.getElementById('chatLog');
+    if (!log) return;
+
+    const row = document.createElement('div');
+    row.className = `msg ${who}`;
+
+    const avatar = document.createElement('span');
+    avatar.className = 'chat-avatar';
+    avatar.textContent = (who === 'user') ? '👤' : '🤖';
+
+    const wrap = document.createElement('div');
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.innerHTML = escapeHtml(text);
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent = ts;
+
+    wrap.appendChild(bubble);
+    wrap.appendChild(meta);
+
+    row.appendChild(avatar);
+    row.appendChild(wrap);
+    log.appendChild(row);
+
+    if (persist) persistMessage(who, text, ts);
+
+    scrollLogToBottom();
+    }
+
+    function scrollLogToBottom(){
+    const log = document.getElementById('chatLog');
+    log.scrollTop = log.scrollHeight;
+    }
+
+    function updateChatCounter() {
+    document.querySelectorAll('.chat-count').forEach(el => el.textContent = String(chatCount));
+    }
+
+    function setTyping(on){
+    const row = document.getElementById('typingRow');
+    row.style.display = on ? 'flex' : 'none';
+    document.getElementById('chatSendBtn').disabled = on;
+    }
+
+    function botReply(text) {
+    const t = text.toLowerCase().trim();
+    let reply = "I'm your friendly QA bot. Type 'help' for ideas!";
+    let delay = 500 + Math.min(1500, text.length * 30); // “type” proportional to length
+
+    if (/\b(hi|hello|hey)\b/.test(t)) {
+        reply = `Hey ${playerName || 'there'}! Fancy a Memory round after this?`;
+    } else if (/\bhelp\b/.test(t)) {
+        reply = "Try: 'tell a joke', 'flip a coin', 'roll a dice', 'tip', or ask QA things (bug, jira, regression, flaky).";
+    } else if (/\bjoke\b/.test(t)) {
+        reply = "Why did the developer go broke? Because he used up all his cache. 💸";
+    } else if (/\bcoin|flip\b/.test(t)) {
+        reply = Math.random() < 0.5 ? "Heads!" : "Tails!";
+    } else if (/\b(dice|roll)\b/.test(t)) {
+        reply = `You rolled a ${1 + Math.floor(Math.random() * 6)} 🎲`;
+    } else if (/\b(bug|defect|jira|ticket|regression)\b/.test(t)) {
+        reply = "QA tip: Reproduce → Minimize → Assert. Link PR & logs. Lock the fix with a failing test first. ✅";
+    } else if (/\bflaky|flake\b/.test(t)) {
+        reply = "Flaky test playbook: stabilize waits, isolate state, add retries + telemetry, and track failure signatures.";
+    } else if (/\btip\b/.test(t)) {
+        reply = "Small daily habit: annotate every failing test with a 1-line suspected root cause. Patterns emerge fast.";
+    }
+
+    setTyping(true);
+    botBusy = true;
+    setTimeout(() => {
+        setTyping(false);
+        appendMessage('bot', reply);
+        playSound('click');
+        botBusy = false;
+    }, delay);
+    }
+
+    function sendChat() {
+    if (botBusy) return;
+
+    const input = document.getElementById('chatInput');
+    if (!input) return;
+
+    const text = input.value.trim();
+    if (!text) return;
+
+    appendMessage('user', text);
+    playSound('click');
+    input.value = '';
+    chatCount++;
+    updateChatCounter();
+
+    // 1) handle slash commands first
+    if (handleSlashCommand(text)) return;
+
+    // 2) otherwise normal reply path (local or agent)
+    botReply(text);
+    }
+
+    // Enter-to-send
+    document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('chatInput');
+    if (input){
+        input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendChat();
+        }
+        });
+    }
+    // Restore history if chat is opened later
+    const observer = new MutationObserver(() => {
+        if (document.getElementById('chatLog')?.isConnected) {
+        observer.disconnect();
+        restoreChat();
+        }
+    });
+    observer.observe(document.body, {childList:true, subtree:true});
+    });
+
+    // Hook focus when selecting chatbot (wrap existing selectGame)
+    const __origSelectGame = selectGame;
+    selectGame = function(game) {
+    __origSelectGame(game);
+    if (game === 'chatbot') {
+        restoreChat();
+        selectChatFocus();
+    }
+    };
+    // --- COMMANDS ---
+    const GAME_ALIASES = {
+    memory: 'memory',
+    mem: 'memory',
+    bugs: 'bugSmasher',
+    bug: 'bugSmasher',
+    'bug-smasher': 'bugSmasher',
+    ttt: 'tictactoe',
+    tictactoe: 'tictactoe',
+    sudoku: 'sudoku',
+    chat: 'chatbot',
+    chatbot: 'chatbot'
+    };
+
+    function playGameByName(name) {
+    const key = (name || '').toLowerCase().trim();
+    const gameId = GAME_ALIASES[key];
+    if (!gameId) {
+        appendMessage('bot', `I don't recognise "${escapeHtml(name)}". Try: memory, bugs, tictactoe, sudoku, chatbot.`);
+        return;
+    }
+    // Highlight the right card if present
+    const card = Array.from(document.querySelectorAll('.game-card'))
+        .find(c => (c.textContent || '').toLowerCase().includes(key));
+    if (card) card.classList.add('active');
+
+    // Switch the game (this will respect your existing selectGame behavior)
+    if (typeof selectGame === 'function') {
+        selectGame(gameId);
+    }
+    // Small confirmation
+    if (gameId !== 'chatbot') {
+        appendMessage('bot', `Launching ${gameId === 'bugSmasher' ? 'Bug Smasher' :
+                                gameId === 'memory' ? 'Memory Match' :
+                                gameId === 'tictactoe' ? 'Tic Tac Toe' :
+                                gameId === 'sudoku' ? 'Sudoku Master' : 'Chat' }…`);
+    }
+    }
+
+    // Parse slash commands. Return true if handled.
+    function handleSlashCommand(text) {
+    if (!text.startsWith('/')) return false;
+
+    const [cmd, ...args] = text.slice(1).split(/\s+/);
+    const rest = args.join(' ');
+
+    switch (cmd.toLowerCase()) {
+        case 'play':
+        if (!rest) {
+            appendMessage('bot', "Usage: /play <memory|bugs|tictactoe|sudoku|chatbot>");
+        } else {
+            playGameByName(rest);
+        }
+        return true;
+
+        case 'help':
+        appendMessage('bot', "Commands:\n • /play <game>\n • /agent on|off\n • /help");
+        return true;
+
+        case 'agent':
+        if (/^\s*on\s*$/i.test(rest)) {
+            setAgentEnabled(true);
+            appendMessage('bot', "Agent mode: ON");
+        } else if (/^\s*off\s*$/i.test(rest)) {
+            setAgentEnabled(false);
+            appendMessage('bot', "Agent mode: OFF");
+        } else {
+            appendMessage('bot', "Usage: /agent on|off");
+        }
+        return true;
+
+        default:
+        appendMessage('bot', `Unknown command: /${escapeHtml(cmd)}. Try /help`);
+        return true;
+    }
+    }
+</script>
+
 </body>
 </html>
