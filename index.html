@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Bug Smasher - Break Time Fun!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255,255,255,0.5); }
+            50% { text-shadow: 0 0 30px rgba(255,255,255,0.8); }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .game-area {
+            width: 100%;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            cursor: crosshair;
+            margin-bottom: 20px;
+        }
+
+        .bug {
+            position: absolute;
+            font-size: 40px;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.1s;
+            animation: wiggle 0.5s infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .bug:hover {
+            transform: scale(1.2);
+        }
+
+        .bug.smashed {
+            animation: smash 0.3s forwards;
+        }
+
+        @keyframes smash {
+            to {
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .score-popup {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+            pointer-events: none;
+            animation: floatUp 1s forwards;
+        }
+
+        @keyframes floatUp {
+            to {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 0 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .leaderboard {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .leaderboard h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+
+        .leaderboard-list {
+            list-style: none;
+        }
+
+        .leaderboard-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            margin: 5px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .leaderboard-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .rank {
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .rank.gold { color: #FFD700; }
+        .rank.silver { color: #C0C0C0; }
+        .rank.bronze { color: #CD7F32; }
+
+        .player-name {
+            flex: 1;
+        }
+
+        .player-score {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .name-input {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .name-input input {
+            padding: 10px 20px;
+            font-size: 1.1em;
+            border-radius: 25px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            width: 300px;
+            max-width: 100%;
+        }
+
+        .difficulty {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .difficulty button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin: 0 5px;
+        }
+
+        .difficulty button.active {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        }
+
+        .timer-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .timer-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #FFD700);
+            transition: width 0.1s linear;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🐛 QA Bug Smasher 🔨</h1>
+        <p>Squash those bugs during your break time!</p>
+    </div>
+
+    <div class="name-input">
+        <input type="text" id="playerName" placeholder="Enter your name to start" maxlength="20">
+    </div>
+
+    <div class="difficulty">
+        <button onclick="setDifficulty('easy')" class="diff-btn active" data-diff="easy">Easy</button>
+        <button onclick="setDifficulty('medium')" class="diff-btn" data-diff="medium">Medium</button>
+        <button onclick="setDifficulty('hard')" class="diff-btn" data-diff="hard">Hard</button>
+        <button onclick="setDifficulty('insane')" class="diff-btn" data-diff="insane">Insane</button>
+    </div>
+
+    <div class="game-container">
+        <div class="timer-bar">
+            <div class="timer-fill" id="timerFill"></div>
+        </div>
+        <div class="game-info">
+            <div>Score: <span id="score">0</span></div>
+            <div>Time: <span id="time">30</span>s</div>
+            <div>Bugs Missed: <span id="missed">0</span>/5</div>
+        </div>
+        <div class="game-area" id="gameArea"></div>
+        <div class="controls">
+            <button id="startBtn" onclick="startGame()">Start Game</button>
+            <button onclick="resetLeaderboard()">Reset Today's Scores</button>
+        </div>
+    </div>
+
+    <div class="leaderboard">
+        <h2>🏆 Today's Champions 🏆</h2>
+        <ul class="leaderboard-list" id="leaderboardList"></ul>
+    </div>
+
+    <script>
+        let score = 0;
+        let timeLeft = 30;
+        let gameActive = false;
+        let bugInterval;
+        let timerInterval;
+        let playerName = '';
+        let difficulty = 'easy';
+        let missedBugs = 0;
+        const maxMissed = 5;
+
+        const bugEmojis = ['🐛', '🦟', '🐜', '🕷️', '🦗', '🐞'];
+        
+        const difficultySettings = {
+            easy: { spawnRate: 1500, bugLifetime: 3000, points: 10 },
+            medium: { spawnRate: 1000, bugLifetime: 2500, points: 15 },
+            hard: { spawnRate: 700, bugLifetime: 2000, points: 20 },
+            insane: { spawnRate: 500, bugLifetime: 1500, points: 30 }
+        };
+
+        function setDifficulty(diff) {
+            difficulty = diff;
+            document.querySelectorAll('.diff-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-diff="${diff}"]`).classList.add('active');
+        }
+
+        function startGame() {
+            playerName = document.getElementById('playerName').value.trim();
+            if (!playerName) {
+                alert('Please enter your name first!');
+                document.getElementById('playerName').focus();
+                return;
+            }
+
+            score = 0;
+            timeLeft = 30;
+            missedBugs = 0;
+            gameActive = true;
+            document.getElementById('score').textContent = score;
+            document.getElementById('time').textContent = timeLeft;
+            document.getElementById('missed').textContent = `${missedBugs}/${maxMissed}`;
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('playerName').disabled = true;
+            document.querySelectorAll('.diff-btn').forEach(btn => btn.disabled = true);
+
+            // Clear game area
+            document.getElementById('gameArea').innerHTML = '';
+
+            // Start spawning bugs
+            bugInterval = setInterval(spawnBug, difficultySettings[difficulty].spawnRate);
+
+            // Start timer
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('time').textContent = timeLeft;
+                document.getElementById('timerFill').style.width = `${(timeLeft / 30) * 100}%`;
+                
+                if (timeLeft <= 0 || missedBugs >= maxMissed) {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function spawnBug() {
+            if (!gameActive) return;
+
+            const gameArea = document.getElementById('gameArea');
+            const bug = document.createElement('div');
+            bug.className = 'bug';
+            bug.textContent = bugEmojis[Math.floor(Math.random() * bugEmojis.length)];
+            
+            const maxX = gameArea.clientWidth - 50;
+            const maxY = gameArea.clientHeight - 50;
+            bug.style.left = Math.random() * maxX + 'px';
+            bug.style.top = Math.random() * maxY + 'px';
+            
+            bug.onclick = function() {
+                smashBug(bug);
+            };
+
+            gameArea.appendChild(bug);
+
+            // Remove bug after lifetime
+            setTimeout(() => {
+                if (bug.parentNode && !bug.classList.contains('smashed')) {
+                    bug.remove();
+                    missedBugs++;
+                    document.getElementById('missed').textContent = `${missedBugs}/${maxMissed}`;
+                    
+                    if (missedBugs >= maxMissed) {
+                        endGame();
+                    }
+                }
+            }, difficultySettings[difficulty].bugLifetime);
+        }
+
+        function smashBug(bug) {
+            if (!gameActive || bug.classList.contains('smashed')) return;
+
+            bug.classList.add('smashed');
+            score += difficultySettings[difficulty].points;
+            document.getElementById('score').textContent = score;
+
+            // Show score popup
+            const popup = document.createElement('div');
+            popup.className = 'score-popup';
+            popup.textContent = `+${difficultySettings[difficulty].points}`;
+            popup.style.left = bug.style.left;
+            popup.style.top = bug.style.top;
+            document.getElementById('gameArea').appendChild(popup);
+
+            setTimeout(() => {
+                bug.remove();
+                popup.remove();
+            }, 300);
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(bugInterval);
+            clearInterval(timerInterval);
+            
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('playerName').disabled = false;
+            document.querySelectorAll('.diff-btn').forEach(btn => btn.disabled = false);
+
+            // Save score
+            saveScore(playerName, score);
+            
+            // Show result
+            setTimeout(() => {
+                alert(`Game Over! ${playerName}, you scored ${score} points!`);
+            }, 100);
+        }
+
+        function saveScore(name, score) {
+            const today = new Date().toDateString();
+            let scores = JSON.parse(localStorage.getItem('bugSmasherScores') || '{}');
+            
+            if (!scores[today]) {
+                scores[today] = [];
+            }
+            
+            scores[today].push({ name, score, time: new Date().toISOString() });
+            scores[today].sort((a, b) => b.score - a.score);
+            scores[today] = scores[today].slice(0, 10); // Keep top 10
+            
+            localStorage.setItem('bugSmasherScores', JSON.stringify(scores));
+            updateLeaderboard();
+        }
+
+        function updateLeaderboard() {
+            const today = new Date().toDateString();
+            const scores = JSON.parse(localStorage.getItem('bugSmasherScores') || '{}');
+            const todayScores = scores[today] || [];
+            
+            const leaderboardList = document.getElementById('leaderboardList');
+            leaderboardList.innerHTML = '';
+            
+            if (todayScores.length === 0) {
+                leaderboardList.innerHTML = '<li class="leaderboard-item">No scores yet today. Be the first!</li>';
+                return;
+            }
+            
+            todayScores.forEach((entry, index) => {
+                const li = document.createElement('li');
+                li.className = 'leaderboard-item';
+                
+                let rankClass = '';
+                let rankSymbol = `${index + 1}.`;
+                if (index === 0) {
+                    rankClass = 'gold';
+                    rankSymbol = '🥇';
+                } else if (index === 1) {
+                    rankClass = 'silver';
+                    rankSymbol = '🥈';
+                } else if (index === 2) {
+                    rankClass = 'bronze';
+                    rankSymbol = '🥉';
+                }
+                
+                li.innerHTML = `
+                    <span class="rank ${rankClass}">${rankSymbol}</span>
+                    <span class="player-name">${entry.name}</span>
+                    <span class="player-score">${entry.score} pts</span>
+                `;
+                
+                leaderboardList.appendChild(li);
+            });
+        }
+
+        function resetLeaderboard() {
+            if (confirm('Are you sure you want to reset today\'s scores?')) {
+                const today = new Date().toDateString();
+                let scores = JSON.parse(localStorage.getItem('bugSmasherScores') || '{}');
+                delete scores[today];
+                localStorage.setItem('bugSmasherScores', JSON.stringify(scores));
+                updateLeaderboard();
+            }
+        }
+
+        // Initialize leaderboard on load
+        updateLeaderboard();
+
+        // Focus on name input
+        document.getElementById('playerName').focus();
+    </script>
+</body>
+</html>
