@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QA Bug Smasher - Break Time Fun!</title>
+    <title>QA Break Room - Ultimate Gaming Hub</title>
     <style>
         * {
             margin: 0;
@@ -15,64 +15,62 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             padding: 20px;
             color: white;
+            overflow-x: hidden;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            animation: glow 2s ease-in-out infinite;
+        /* Animations */
+        @keyframes slideInFromTop {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 20px rgba(255,255,255,0.5); }
-            50% { text-shadow: 0 0 30px rgba(255,255,255,0.8); }
+            0%, 100% { 
+                text-shadow: 0 0 20px rgba(255,255,255,0.5);
+                transform: translateY(0);
+            }
+            50% { 
+                text-shadow: 0 0 30px rgba(255,255,255,0.8);
+                transform: translateY(-5px);
+            }
         }
 
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+        @keyframes confetti {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(300px) rotate(720deg);
+                opacity: 0;
+            }
         }
 
-        .game-container {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            max-width: 800px;
-            width: 100%;
-        }
-
-        .game-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-        }
-
-        .game-area {
-            width: 100%;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-            cursor: crosshair;
-            margin-bottom: 20px;
-        }
-
-        .bug {
-            position: absolute;
-            font-size: 40px;
-            cursor: pointer;
-            user-select: none;
-            transition: transform 0.1s;
-            animation: wiggle 0.5s infinite;
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         @keyframes wiggle {
@@ -80,8 +78,308 @@
             50% { transform: rotate(5deg); }
         }
 
-        .bug:hover {
-            transform: scale(1.2);
+        @keyframes floatUp {
+            to {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .main-header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: slideInFromTop 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite;
+            background: linear-gradient(45deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .season-banner {
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            padding: 10px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            margin: 10px 0;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            font-size: 1.1em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .nav-tab:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .nav-tab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            transform: scale(1.05);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            animation: bounceIn 0.5s;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Player Setup */
+        .player-setup {
+            text-align: center;
+            margin-bottom: 20px;
+            animation: slideInFromTop 1s ease-out;
+        }
+
+        .player-setup input {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            width: 350px;
+            max-width: 90%;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+
+        .player-setup input:focus {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255,255,255,0.5);
+            outline: none;
+        }
+
+        /* Game Cards */
+        .game-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::after {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            animation: sparkle 2s infinite;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .game-card.active {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.3), rgba(76, 175, 80, 0.5));
+            border: 2px solid #4CAF50;
+            animation: pulse 1s infinite;
+        }
+
+        .game-icon {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            transition: transform 0.3s;
+        }
+
+        .game-card:hover .game-icon {
+            transform: rotate(10deg) scale(1.2);
+        }
+
+        /* Game Container */
+        .game-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            display: none;
+            animation: bounceIn 0.5s;
+        }
+
+        .game-container.active {
+            display: block;
+        }
+
+        /* Sound Control */
+        .sound-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .sound-control:hover {
+            transform: rotate(180deg) scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Tournament Styles */
+        .tournament-bracket {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .tournament-round {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .match-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px;
+            min-width: 200px;
+            transition: all 0.3s;
+        }
+
+        .match-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .player-slot {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .winner {
+            background: linear-gradient(135deg, #ffd700, #ffed4b);
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Season Stats */
+        .season-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ffd700, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Bug Smasher Game */
+        .bug-game-area {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.9));
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            cursor: crosshair;
+            margin: 20px 0;
+        }
+
+        .bug {
+            position: absolute;
+            font-size: 40px;
+            cursor: pointer;
+            user-select: none;
+            animation: wiggle 0.5s infinite;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
         }
 
         .bug.smashed {
@@ -97,35 +395,107 @@
 
         .score-popup {
             position: absolute;
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             color: #4CAF50;
             pointer-events: none;
             animation: floatUp 1s forwards;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
-        @keyframes floatUp {
-            to {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
+        /* Memory Game */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 450px;
+            margin: 20px auto;
         }
 
-        .controls {
-            text-align: center;
-            margin-bottom: 20px;
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
+        .memory-card:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .memory-card.flipped {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.9));
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+            animation: pulse 0.5s;
+            cursor: default;
+        }
+
+        /* Achievements */
+        .achievement-popup {
+            position: fixed;
+            top: 100px;
+            right: -400px;
+            background: linear-gradient(135deg, #ffd700, #ffed4b);
+            color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: right 0.5s;
+            z-index: 1000;
+            max-width: 350px;
+        }
+
+        .achievement-popup.show {
+            right: 20px;
+        }
+
+        .achievement-icon {
+            font-size: 2em;
+            margin-right: 10px;
+        }
+
+        /* Buttons */
         button {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             border: none;
             color: white;
-            padding: 15px 40px;
-            font-size: 1.2em;
-            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 25px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin: 0 10px;
+            transition: all 0.3s;
+            margin: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        button:hover::before {
+            width: 100%;
+            height: 100%;
         }
 
         button:hover {
@@ -142,19 +512,46 @@
             cursor: not-allowed;
         }
 
+        /* Score Display */
+        .score-display {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .score-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 1.1em;
+            transition: all 0.3s;
+        }
+
+        .score-item:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Leaderboard */
         .leaderboard {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 20px;
-            margin-top: 20px;
+            margin-top: 30px;
             max-width: 800px;
-            width: 100%;
+            margin: 30px auto;
         }
 
         .leaderboard h2 {
             text-align: center;
-            margin-bottom: 15px;
-            color: #FFD700;
+            margin-bottom: 20px;
+            font-size: 2em;
+            background: linear-gradient(45deg, #ffd700, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .leaderboard-list {
@@ -163,331 +560,684 @@
 
         .leaderboard-item {
             background: rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            margin: 5px 0;
-            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: transform 0.2s;
+            transition: all 0.3s;
+            animation: slideInFromTop 0.5s;
         }
 
         .leaderboard-item:hover {
-            transform: translateX(5px);
+            transform: translateX(10px);
             background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
 
-        .rank {
-            font-weight: bold;
-            margin-right: 15px;
-        }
-
-        .rank.gold { color: #FFD700; }
-        .rank.silver { color: #C0C0C0; }
-        .rank.bronze { color: #CD7F32; }
-
-        .player-name {
-            flex: 1;
-        }
-
-        .player-score {
-            font-weight: bold;
-            color: #4CAF50;
-        }
-
-        .name-input {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .name-input input {
-            padding: 10px 20px;
-            font-size: 1.1em;
-            border-radius: 25px;
-            border: none;
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-            width: 300px;
-            max-width: 100%;
-        }
-
-        .difficulty {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .difficulty button {
-            padding: 10px 20px;
-            font-size: 1em;
-            margin: 0 5px;
-        }
-
-        .difficulty button.active {
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-        }
-
-        .timer-bar {
+        /* Confetti */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 5px;
-            overflow: hidden;
-            margin-bottom: 10px;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
         }
 
-        .timer-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4CAF50, #FFD700);
-            transition: width 0.1s linear;
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            animation: confetti 3s ease-out forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .game-selector { grid-template-columns: 1fr; }
+            .memory-grid { grid-template-columns: repeat(3, 1fr); }
+            .nav-tabs { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🐛 QA Bug Smasher 🔨</h1>
-        <p>Squash those bugs during your break time!</p>
+    <!-- Sound Control -->
+    <div class="sound-control" onclick="toggleSound()" title="Toggle Sound">
+        <span id="soundIcon">🔊</span>
     </div>
 
-    <div class="name-input">
-        <input type="text" id="playerName" placeholder="Enter your name to start" maxlength="20">
+    <!-- Achievement Popup -->
+    <div id="achievementPopup" class="achievement-popup">
+        <span class="achievement-icon">🏆</span>
+        <strong>Achievement Unlocked!</strong>
+        <p id="achievementText"></p>
     </div>
 
-    <div class="difficulty">
-        <button onclick="setDifficulty('easy')" class="diff-btn active" data-diff="easy">Easy</button>
-        <button onclick="setDifficulty('medium')" class="diff-btn" data-diff="medium">Medium</button>
-        <button onclick="setDifficulty('hard')" class="diff-btn" data-diff="hard">Hard</button>
-        <button onclick="setDifficulty('insane')" class="diff-btn" data-diff="insane">Insane</button>
-    </div>
-
-    <div class="game-container">
-        <div class="timer-bar">
-            <div class="timer-fill" id="timerFill"></div>
+    <!-- Main Header -->
+    <div class="main-header">
+        <h1>🎮 QA Break Room Ultimate 🎮</h1>
+        <div class="season-banner">
+            🏆 Season <span id="currentSeason">1</span> - Week <span id="currentWeek">1</span> 🏆
         </div>
-        <div class="game-info">
-            <div>Score: <span id="score">0</span></div>
-            <div>Time: <span id="time">30</span>s</div>
-            <div>Bugs Missed: <span id="missed">0</span>/5</div>
+        <p>Compete, Play, Win Tournaments!</p>
+    </div>
+
+    <!-- Player Setup -->
+    <div class="player-setup">
+        <input type="text" id="playerName" placeholder="Enter your epic gaming name..." maxlength="20">
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+        <div class="nav-tab active" onclick="showSection('games')">🎮 Games</div>
+        <div class="nav-tab" onclick="showSection('tournament')">🏆 Tournament</div>
+        <div class="nav-tab" onclick="showSection('season')">📊 Season Stats</div>
+        <div class="nav-tab" onclick="showSection('achievements')">🌟 Achievements</div>
+    </div>
+
+    <!-- Games Section -->
+    <div id="games" class="content-section active">
+        <div class="game-selector">
+            <div class="game-card" onclick="selectGame('bugSmasher')">
+                <div class="game-icon">🐛</div>
+                <h3>Bug Smasher</h3>
+                <p>Squash the bugs!</p>
+                <small>High Score: <span class="high-score">0</span></small>
+            </div>
+            <div class="game-card" onclick="selectGame('memory')">
+                <div class="game-icon">🧠</div>
+                <h3>Memory Match</h3>
+                <p>Test your memory!</p>
+                <small>Best Time: <span class="best-time">--</span></small>
+            </div>
+            <div class="game-card" onclick="selectGame('sudoku')">
+                <div class="game-icon">🔢</div>
+                <h3>Sudoku Master</h3>
+                <p>Number puzzle!</p>
+                <small>Puzzles Solved: <span class="puzzles-solved">0</span></small>
+            </div>
+            <div class="game-card" onclick="selectGame('tictactoe')">
+                <div class="game-icon">❌</div>
+                <h3>Tic Tac Toe</h3>
+                <p>Classic strategy!</p>
+                <small>Win Streak: <span class="win-streak">0</span></small>
+            </div>
+            <div class="game-card" onclick="selectGame('chatbot')">
+                <div class="game-icon">🤖</div>
+                <h3>QA Bot Chat</h3>
+                <p>Funny conversations!</p>
+                <small>Messages: <span class="chat-count">0</span></small>
+            </div>
         </div>
-        <div class="game-area" id="gameArea"></div>
-        <div class="controls">
-            <button id="startBtn" onclick="startGame()">Start Game</button>
-            <button onclick="resetLeaderboard()">Reset Today's Scores</button>
+
+        <!-- Bug Smasher Game -->
+        <div id="bugSmasher" class="game-container">
+            <h2 style="text-align: center;">🐛 Bug Smasher Championship 🐛</h2>
+            <div class="score-display">
+                <div class="score-item">Score: <span id="bugScore">0</span></div>
+                <div class="score-item">Time: <span id="bugTime">30</span>s</div>
+                <div class="score-item">Combo: x<span id="bugCombo">1</span></div>
+                <div class="score-item">Missed: <span id="bugMissed">0</span>/5</div>
+            </div>
+            <div class="bug-game-area" id="bugGameArea"></div>
+            <div style="text-align: center;">
+                <button onclick="startBugGame()">🎮 Start Game</button>
+                <button onclick="changeBugDifficulty()">⚙️ Difficulty</button>
+            </div>
+        </div>
+
+        <!-- Memory Game -->
+        <div id="memory" class="game-container">
+            <h2 style="text-align: center;">🧠 Memory Master Challenge 🧠</h2>
+            <div class="score-display">
+                <div class="score-item">Moves: <span id="memoryMoves">0</span></div>
+                <div class="score-item">Time: <span id="memoryTime">0</span>s</div>
+                <div class="score-item">Matches: <span id="memoryMatches">0</span>/8</div>
+            </div>
+            <div class="memory-grid" id="memoryGrid"></div>
+            <div style="text-align: center;">
+                <button onclick="startMemoryGame()">🔄 New Game</button>
+            </div>
         </div>
     </div>
 
-    <div class="leaderboard">
-        <h2>🏆 Today's Champions 🏆</h2>
-        <ul class="leaderboard-list" id="leaderboardList"></ul>
+    <!-- Tournament Section -->
+    <div id="tournament" class="content-section">
+        <h2 style="text-align: center; color: #ffd700;">🏆 Weekly Tournament 🏆</h2>
+        <div class="tournament-bracket">
+            <h3>Current Tournament: Bug Smasher Championship</h3>
+            <div class="tournament-round">
+                <div class="match-card">
+                    <h4>Quarter Finals</h4>
+                    <div class="player-slot">Player 1 <span>850</span></div>
+                    <div class="player-slot winner">Player 2 <span>920</span></div>
+                </div>
+                <div class="match-card">
+                    <h4>Semi Finals</h4>
+                    <div class="player-slot">TBD</div>
+                    <div class="player-slot">TBD</div>
+                </div>
+                <div class="match-card">
+                    <h4>Finals</h4>
+                    <div class="player-slot">TBD</div>
+                    <div class="player-slot">TBD</div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="joinTournament()">🎮 Join Tournament</button>
+                <button onclick="viewTournamentHistory()">📜 History</button>
+            </div>
+        </div>
     </div>
+
+    <!-- Season Stats Section -->
+    <div id="season" class="content-section">
+        <h2 style="text-align: center;">📊 Season Statistics 📊</h2>
+        <div class="season-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalGames">0</div>
+                <p>Games Played</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalPoints">0</div>
+                <p>Total Points</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="tournamentWins">0</div>
+                <p>Tournament Wins</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="currentRank">#--</div>
+                <p>Current Rank</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="viewSeasonLeaderboard()">🏆 Season Leaderboard</button>
+            <button onclick="resetSeason()">🔄 New Season</button>
+        </div>
+    </div>
+
+    <!-- Achievements Section -->
+    <div id="achievements" class="content-section">
+        <h2 style="text-align: center;">🌟 Achievements 🌟</h2>
+        <div class="season-stats">
+            <div class="stat-card">
+                <div style="font-size: 3em;">🐛</div>
+                <h4>Bug Destroyer</h4>
+                <p>Smash 100 bugs</p>
+                <div style="margin-top: 10px;">
+                    <div style="background: rgba(255,255,255,0.2); height: 10px; border-radius: 5px;">
+                        <div style="background: #4CAF50; height: 100%; width: 45%; border-radius: 5px;"></div>
+                    </div>
+                    <small>45/100</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div style="font-size: 3em;">🧠</div>
+                <h4>Memory Master</h4>
+                <p>Complete in under 30s</p>
+                <div style="margin-top: 10px;">
+                    <span style="color: #ffd700;">🔒 Locked</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div style="font-size: 3em;">🏆</div>
+                <h4>Tournament Champion</h4>
+                <p>Win a tournament</p>
+                <div style="margin-top: 10px;">
+                    <span style="color: #ffd700;">🔒 Locked</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div style="font-size: 3em;">🔥</div>
+                <h4>On Fire!</h4>
+                <p>5 game win streak</p>
+                <div style="margin-top: 10px;">
+                    <div style="background: rgba(255,255,255,0.2); height: 10px; border-radius: 5px;">
+                        <div style="background: #ff6b6b; height: 100%; width: 60%; border-radius: 5px;"></div>
+                    </div>
+                    <small>3/5</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti Container -->
+    <div id="confettiContainer" class="confetti-container"></div>
 
     <script>
-        let score = 0;
-        let timeLeft = 30;
-        let gameActive = false;
-        let bugInterval;
-        let timerInterval;
-        let playerName = '';
-        let difficulty = 'easy';
-        let missedBugs = 0;
-        const maxMissed = 5;
-
-        const bugEmojis = ['🐛', '🦟', '🐜', '🕷️', '🦗', '🐞'];
-        
-        const difficultySettings = {
-            easy: { spawnRate: 1500, bugLifetime: 3000, points: 10 },
-            medium: { spawnRate: 1000, bugLifetime: 2500, points: 15 },
-            hard: { spawnRate: 700, bugLifetime: 2000, points: 20 },
-            insane: { spawnRate: 500, bugLifetime: 1500, points: 30 }
+        // Sound System
+        let soundEnabled = true;
+        const sounds = {
+            click: new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFA=='),
+            win: new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFA=='),
+            lose: new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N6QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjiS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFApGn+DyvmwhBjmS1/LNeSsFJHfH8N2QQAoVXrTp66hVFA==')
         };
 
-        function setDifficulty(diff) {
-            difficulty = diff;
-            document.querySelectorAll('.diff-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`[data-diff="${diff}"]`).classList.add('active');
+        function playSound(type) {
+            if (soundEnabled && sounds[type]) {
+                sounds[type].currentTime = 0;
+                sounds[type].play().catch(e => console.log('Sound play failed'));
+            }
         }
 
-        function startGame() {
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.getElementById('soundIcon').textContent = soundEnabled ? '🔊' : '🔇';
+            localStorage.setItem('soundEnabled', soundEnabled);
+        }
+
+        // Global Variables
+        let currentGame = null;
+        let playerName = '';
+        let currentSeason = 1;
+        let currentWeek = 1;
+        let seasonStats = {
+            totalGames: 0,
+            totalPoints: 0,
+            tournamentWins: 0,
+            achievements: {}
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSeasonData();
+            updateSeasonDisplay();
+            soundEnabled = localStorage.getItem('soundEnabled') !== 'false';
+            document.getElementById('soundIcon').textContent = soundEnabled ? '🔊' : '🔇';
+        });
+
+        // Navigation
+        function showSection(section) {
+            playSound('click');
+            
+            document.querySelectorAll('.content-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(section).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Game Selection
+        function selectGame(game) {
             playerName = document.getElementById('playerName').value.trim();
             if (!playerName) {
-                alert('Please enter your name first!');
+                alert('🎮 Enter your epic gaming name first!');
                 document.getElementById('playerName').focus();
                 return;
             }
 
-            score = 0;
-            timeLeft = 30;
-            missedBugs = 0;
-            gameActive = true;
-            document.getElementById('score').textContent = score;
-            document.getElementById('time').textContent = timeLeft;
-            document.getElementById('missed').textContent = `${missedBugs}/${maxMissed}`;
-            document.getElementById('startBtn').disabled = true;
-            document.getElementById('playerName').disabled = true;
-            document.querySelectorAll('.diff-btn').forEach(btn => btn.disabled = true);
+            playSound('click');
+            
+            // Hide all games
+            document.querySelectorAll('.game-container').forEach(container => {
+                container.classList.remove('active');
+            });
 
-            // Clear game area
-            document.getElementById('gameArea').innerHTML = '';
+            // Remove active from all cards
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.classList.remove('active');
+            });
 
-            // Start spawning bugs
-            bugInterval = setInterval(spawnBug, difficultySettings[difficulty].spawnRate);
+            // Show selected game
+            document.getElementById(game).classList.add('active');
+            event.currentTarget.classList.add('active');
+            currentGame = game;
 
-            // Start timer
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                document.getElementById('time').textContent = timeLeft;
-                document.getElementById('timerFill').style.width = `${(timeLeft / 30) * 100}%`;
-                
-                if (timeLeft <= 0 || missedBugs >= maxMissed) {
-                    endGame();
-                }
+            // Initialize game
+            if (game === 'memory') initMemoryGame();
+        }
+
+        // ============ BUG SMASHER GAME ============
+        let bugScore = 0;
+        let bugTime = 30;
+        let bugGameActive = false;
+        let bugInterval;
+        let bugTimerInterval;
+        let bugMissed = 0;
+        let bugCombo = 1;
+        let lastBugTime = 0;
+
+        function startBugGame() {
+            bugScore = 0;
+            bugTime = 30;
+            bugMissed = 0;
+            bugCombo = 1;
+            bugGameActive = true;
+            lastBugTime = Date.now();
+            
+            document.getElementById('bugScore').textContent = bugScore;
+            document.getElementById('bugTime').textContent = bugTime;
+            document.getElementById('bugCombo').textContent = bugCombo;
+            document.getElementById('bugMissed').textContent = '0/5';
+            document.getElementById('bugGameArea').innerHTML = '';
+
+            playSound('click');
+
+            bugInterval = setInterval(spawnBug, 1000);
+            bugTimerInterval = setInterval(() => {
+                bugTime--;
+                document.getElementById('bugTime').textContent = bugTime;
+                if (bugTime <= 0 || bugMissed >= 5) endBugGame();
             }, 1000);
         }
 
         function spawnBug() {
-            if (!gameActive) return;
-
-            const gameArea = document.getElementById('gameArea');
+            if (!bugGameActive) return;
+            
+            const gameArea = document.getElementById('bugGameArea');
             const bug = document.createElement('div');
             bug.className = 'bug';
-            bug.textContent = bugEmojis[Math.floor(Math.random() * bugEmojis.length)];
+            bug.textContent = ['🐛', '🦟', '🐜', '🕷️', '🦗', '🐞'][Math.floor(Math.random() * 6)];
             
             const maxX = gameArea.clientWidth - 50;
             const maxY = gameArea.clientHeight - 50;
             bug.style.left = Math.random() * maxX + 'px';
             bug.style.top = Math.random() * maxY + 'px';
             
-            bug.onclick = function() {
-                smashBug(bug);
+            bug.onclick = () => {
+                if (!bug.classList.contains('smashed')) {
+                    // Calculate combo
+                    const now = Date.now();
+                    if (now - lastBugTime < 1000) {
+                        bugCombo = Math.min(bugCombo + 0.5, 5);
+                    } else {
+                        bugCombo = Math.max(1, bugCombo - 0.5);
+                    }
+                    lastBugTime = now;
+                    
+                    bug.classList.add('smashed');
+                    const points = Math.floor(10 * bugCombo);
+                    bugScore += points;
+                    
+                    document.getElementById('bugScore').textContent = bugScore;
+                    document.getElementById('bugCombo').textContent = bugCombo.toFixed(1);
+                    
+                    // Show score popup
+                    const popup = document.createElement('div');
+                    popup.className = 'score-popup';
+                    popup.textContent = `+${points}`;
+                    popup.style.left = bug.style.left;
+                    popup.style.top = bug.style.top;
+                    gameArea.appendChild(popup);
+                    
+                    playSound('click');
+                    
+                    setTimeout(() => {
+                        bug.remove();
+                        popup.remove();
+                    }, 300);
+                }
             };
 
             gameArea.appendChild(bug);
 
-            // Remove bug after lifetime
             setTimeout(() => {
                 if (bug.parentNode && !bug.classList.contains('smashed')) {
                     bug.remove();
-                    missedBugs++;
-                    document.getElementById('missed').textContent = `${missedBugs}/${maxMissed}`;
+                    bugMissed++;
+                    bugCombo = Math.max(1, bugCombo - 1);
+                    document.getElementById('bugMissed').textContent = `${bugMissed}/5`;
+                    document.getElementById('bugCombo').textContent = bugCombo.toFixed(1);
                     
-                    if (missedBugs >= maxMissed) {
-                        endGame();
-                    }
+                    if (bugMissed >= 5) endBugGame();
                 }
-            }, difficultySettings[difficulty].bugLifetime);
+            }, 2500);
         }
 
-        function smashBug(bug) {
-            if (!gameActive || bug.classList.contains('smashed')) return;
-
-            bug.classList.add('smashed');
-            score += difficultySettings[difficulty].points;
-            document.getElementById('score').textContent = score;
-
-            // Show score popup
-            const popup = document.createElement('div');
-            popup.className = 'score-popup';
-            popup.textContent = `+${difficultySettings[difficulty].points}`;
-            popup.style.left = bug.style.left;
-            popup.style.top = bug.style.top;
-            document.getElementById('gameArea').appendChild(popup);
-
-            setTimeout(() => {
-                bug.remove();
-                popup.remove();
-            }, 300);
-        }
-
-        function endGame() {
-            gameActive = false;
+        function endBugGame() {
+            bugGameActive = false;
             clearInterval(bugInterval);
-            clearInterval(timerInterval);
+            clearInterval(bugTimerInterval);
             
-            document.getElementById('startBtn').disabled = false;
-            document.getElementById('playerName').disabled = false;
-            document.querySelectorAll('.diff-btn').forEach(btn => btn.disabled = false);
-
-            // Save score
-            saveScore(playerName, score);
+            saveScore('bugSmasher', bugScore);
+            updateStats(bugScore);
             
-            // Show result
+            if (bugScore > 500) {
+                showAchievement('Bug Master', 'Scored over 500 points!');
+                triggerConfetti();
+                playSound('win');
+            } else {
+                playSound('lose');
+            }
+            
             setTimeout(() => {
-                alert(`Game Over! ${playerName}, you scored ${score} points!`);
+                alert(`🎮 Game Over!\n\nScore: ${bugScore} points\nCombo: x${bugCombo.toFixed(1)}`);
             }, 100);
         }
 
-        function saveScore(name, score) {
-            const today = new Date().toDateString();
-            let scores = JSON.parse(localStorage.getItem('bugSmasherScores') || '{}');
-            
-            if (!scores[today]) {
-                scores[today] = [];
-            }
-            
-            scores[today].push({ name, score, time: new Date().toISOString() });
-            scores[today].sort((a, b) => b.score - a.score);
-            scores[today] = scores[today].slice(0, 10); // Keep top 10
-            
-            localStorage.setItem('bugSmasherScores', JSON.stringify(scores));
-            updateLeaderboard();
+        function changeBugDifficulty() {
+            playSound('click');
+            alert('🎮 Difficulty modes coming soon! Stay tuned!');
         }
 
-        function updateLeaderboard() {
-            const today = new Date().toDateString();
-            const scores = JSON.parse(localStorage.getItem('bugSmasherScores') || '{}');
-            const todayScores = scores[today] || [];
+        // ============ MEMORY GAME ============
+        let memoryCards = [];
+        let flippedCards = [];
+        let memoryMoves = 0;
+        let memoryMatches = 0;
+        let memoryTime = 0;
+        let memoryTimerInterval;
+
+        function initMemoryGame() {
+            const emojis = ['🎮', '🎯', '🎨', '🎭', '🎪', '🎸', '🎲', '🎳'];
+            const cards = [...emojis, ...emojis];
+            cards.sort(() => Math.random() - 0.5);
             
-            const leaderboardList = document.getElementById('leaderboardList');
-            leaderboardList.innerHTML = '';
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = '';
             
-            if (todayScores.length === 0) {
-                leaderboardList.innerHTML = '<li class="leaderboard-item">No scores yet today. Be the first!</li>';
-                return;
-            }
-            
-            todayScores.forEach((entry, index) => {
-                const li = document.createElement('li');
-                li.className = 'leaderboard-item';
-                
-                let rankClass = '';
-                let rankSymbol = `${index + 1}.`;
-                if (index === 0) {
-                    rankClass = 'gold';
-                    rankSymbol = '🥇';
-                } else if (index === 1) {
-                    rankClass = 'silver';
-                    rankSymbol = '🥈';
-                } else if (index === 2) {
-                    rankClass = 'bronze';
-                    rankSymbol = '🥉';
-                }
-                
-                li.innerHTML = `
-                    <span class="rank ${rankClass}">${rankSymbol}</span>
-                    <span class="player-name">${entry.name}</span>
-                    <span class="player-score">${entry.score} pts</span>
-                `;
-                
-                leaderboardList.appendChild(li);
+            cards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.emoji = emoji;
+                card.dataset.index = index;
+                card.textContent = '?';
+                card.onclick = () => flipMemoryCard(card);
+                grid.appendChild(card);
             });
         }
 
-        function resetLeaderboard() {
-            if (confirm('Are you sure you want to reset today\'s scores?')) {
-                const today = new Date().toDateString();
-                let scores = JSON.parse(localStorage.getItem('bugSmasherScores') || '{}');
-                delete scores[today];
-                localStorage.setItem('bugSmasherScores', JSON.stringify(scores));
-                updateLeaderboard();
+        function startMemoryGame() {
+            memoryMoves = 0;
+            memoryMatches = 0;
+            memoryTime = 0;
+            document.getElementById('memoryMoves').textContent = memoryMoves;
+            document.getElementById('memoryMatches').textContent = '0/8';
+            document.getElementById('memoryTime').textContent = memoryTime;
+            
+            playSound('click');
+            
+            clearInterval(memoryTimerInterval);
+            memoryTimerInterval = setInterval(() => {
+                memoryTime++;
+                document.getElementById('memoryTime').textContent = memoryTime;
+            }, 1000);
+            
+            initMemoryGame();
+        }
+
+        function flipMemoryCard(card) {
+            if (card.classList.contains('flipped') || card.classList.contains('matched') || flippedCards.length >= 2) {
+                return;
+            }
+
+            playSound('click');
+            card.classList.add('flipped');
+            card.textContent = card.dataset.emoji;
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                memoryMoves++;
+                document.getElementById('memoryMoves').textContent = memoryMoves;
+                
+                setTimeout(() => {
+                    if (flippedCards[0].dataset.emoji === flippedCards[1].dataset.emoji) {
+                        flippedCards[0].classList.add('matched');
+                        flippedCards[1].classList.add('matched');
+                        memoryMatches++;
+                        document.getElementById('memoryMatches').textContent = `${memoryMatches}/8`;
+                        playSound('win');
+                        
+                        if (memoryMatches === 8) {
+                            clearInterval(memoryTimerInterval);
+                            const score = Math.max(1000 - (memoryMoves * 10) - (memoryTime * 2), 100);
+                            saveScore('memory', score);
+                            updateStats(score);
+                            
+                            if (memoryTime < 30) {
+                                showAchievement('Memory Master', 'Completed in under 30 seconds!');
+                                triggerConfetti();
+                            }
+                            
+                            setTimeout(() => {
+                                alert(`🎉 Congratulations!\n\nScore: ${score}\nMoves: ${memoryMoves}\nTime: ${memoryTime}s`);
+                            }, 500);
+                        }
+                    } else {
+                        flippedCards[0].classList.remove('flipped');
+                        flippedCards[1].classList.remove('flipped');
+                        flippedCards[0].textContent = '?';
+                        flippedCards[1].textContent = '?';
+                    }
+                    flippedCards = [];
+                }, 1000);
             }
         }
 
-        // Initialize leaderboard on load
-        updateLeaderboard();
+        // ============ TOURNAMENT SYSTEM ============
+        function joinTournament() {
+            playSound('click');
+            alert(`🏆 ${playerName} joined the tournament!\n\nTournament starts Monday!\nCurrent participants: 8`);
+        }
 
-        // Focus on name input
-        document.getElementById('playerName').focus();
+        function viewTournamentHistory() {
+            playSound('click');
+            alert('📜 Tournament History\n\nWeek 1: John - 1250 pts\nWeek 2: Sarah - 1180 pts\nWeek 3: Mike - 1320 pts');
+        }
+
+        // ============ SEASON SYSTEM ============
+        function loadSeasonData() {
+            const saved = localStorage.getItem('seasonData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                currentSeason = data.season || 1;
+                currentWeek = data.week || 1;
+                seasonStats = data.stats || seasonStats;
+            }
+            updateSeasonDisplay();
+        }
+
+        function updateSeasonDisplay() {
+            document.getElementById('currentSeason').textContent = currentSeason;
+            document.getElementById('currentWeek').textContent = currentWeek;
+            document.getElementById('totalGames').textContent = seasonStats.totalGames;
+            document.getElementById('totalPoints').textContent = seasonStats.totalPoints;
+            document.getElementById('tournamentWins').textContent = seasonStats.tournamentWins;
+            
+            const rank = calculateRank();
+            document.getElementById('currentRank').textContent = rank;
+        }
+
+        function calculateRank() {
+            if (seasonStats.totalPoints > 10000) return '#1';
+            if (seasonStats.totalPoints > 5000) return '#2';
+            if (seasonStats.totalPoints > 2500) return '#3';
+            if (seasonStats.totalPoints > 1000) return '#5';
+            if (seasonStats.totalPoints > 500) return '#10';
+            return '#--';
+        }
+
+        function updateStats(points) {
+            seasonStats.totalGames++;
+            seasonStats.totalPoints += points;
+            saveSeasonData();
+            updateSeasonDisplay();
+        }
+
+        function saveSeasonData() {
+            localStorage.setItem('seasonData', JSON.stringify({
+                season: currentSeason,
+                week: currentWeek,
+                stats: seasonStats
+            }));
+        }
+
+        function viewSeasonLeaderboard() {
+            playSound('click');
+            alert('🏆 Season 1 Leaderboard\n\n1. Alex - 15,420 pts\n2. Sarah - 14,890 pts\n3. You - ' + seasonStats.totalPoints + ' pts');
+        }
+
+        function resetSeason() {
+            if (confirm('Start a new season? All current progress will be archived.')) {
+                currentSeason++;
+                currentWeek = 1;
+                seasonStats = {
+                    totalGames: 0,
+                    totalPoints: 0,
+                    tournamentWins: 0,
+                    achievements: {}
+                };
+                saveSeasonData();
+                updateSeasonDisplay();
+                playSound('win');
+                alert('🎊 Season ' + currentSeason + ' has begun! Good luck!');
+            }
+        }
+
+        // ============ ACHIEVEMENTS ============
+        function showAchievement(title, description) {
+            const popup = document.getElementById('achievementPopup');
+            document.getElementById('achievementText').textContent = description;
+            popup.classList.add('show');
+            
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000);
+        }
+
+        // ============ EFFECTS ============
+        function triggerConfetti() {
+            const container = document.getElementById('confettiContainer');
+            container.innerHTML = '';
+            
+            const colors = ['#ffd700', '#ff6b6b', '#4CAF50', '#f093fb', '#764ba2'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    container.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        // ============ STORAGE ============
+        function saveScore(game, score) {
+            const scores = JSON.parse(localStorage.getItem('qaScores') || '{}');
+            if (!scores[game]) scores[game] = [];
+            scores[game].push({
+                player: playerName,
+                score: score,
+                date: new Date().toISOString()
+            });
+            scores[game].sort((a, b) => b.score - a.score);
+            scores[game] = scores[game].slice(0, 10);
+            localStorage.setItem('qaScores', JSON.stringify(scores));
+        }
     </script>
 </body>
 </html>
