@@ -1,4 +1,4 @@
-# QA Break Room
+# QA Games
 Minimal full-stack scaffold with RBAC (admin/user), domain lock to `innovation-group`, and game score endpoints.
 ## Quick start
 ```bash
