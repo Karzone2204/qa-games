@@ -1,0 +1,123 @@
+{
+  "id": "2139684865",
+  "type": "page",
+  "ari": "ari:cloud:confluence:27707bf3-6ed7-46de-a8c6-2b5516bb49cc:page/2139684865",
+  "base64EncodedAri": "YXJpOmNsb3VkOmNvbmZsdWVuY2U6Mjc3MDdiZjMtNmVkNy00NmRlLWE4YzYtMmI1NTE2YmI0OWNjOmNvbnRlbnQvMjEzOTY4NDg2NQ==",
+  "status": "current",
+  "title": "How to BMW-ProNet for Steered cases",
+  "version": {
+    "by": {
+      "type": "known",
+      "accountId": "712020:739980b9-6a07-4682-b5d1-57c968708587",
+      "accountType": "atlassian",
+      "email": "oliver.murphy@innovation.group",
+      "publicName": "Murphy, Oliver (c)",
+      "profilePicture": {
+        "path": "/wiki/aa-avatar/712020:739980b9-6a07-4682-b5d1-57c968708587",
+        "width": 48,
+        "height": 48,
+        "isDefault": false
+      },
+      "displayName": "Murphy, Oliver (c)",
+      "isExternalCollaborator": false,
+      "isGuest": false,
+      "locale": "en_US",
+      "accountStatus": "active",
+      "_expandable": {
+        "operations": "",
+        "personalSpace": ""
+      },
+      "_links": {
+        "self": "https://innovationgroup.atlassian.net/wiki/rest/api/user?accountId=712020:739980b9-6a07-4682-b5d1-57c968708587"
+      }
+    },
+    "when": "2025-01-29T12:24:38.449Z",
+    "friendlyWhen": "Jan 29, 2025",
+    "message": "",
+    "number": 2,
+    "minorEdit": false,
+    "ncsStepVersion": "128",
+    "ncsStepVersionSource": "ncs-ack",
+    "confRev": "confluence$content$2139684865.17",
+    "contentTypeModified": false,
+    "_expandable": {
+      "collaborators": "",
+      "content": "/rest/api/content/2139684865"
+    },
+    "_links": {
+      "self": "https://innovationgroup.atlassian.net/wiki/rest/api/content/2139684865/version/2"
+    }
+  },
+  "macroRenderedOutput": {},
+  "body": {
+    "storage": {
+      "value": "<ac:structured-macro ac:name=\"toc\" ac:schema-version=\"1\" data-layout=\"default\" ac:local-id=\"d53dad61-fdd5-4ed6-b7d2-d7a1d268a6c8\" ac:macro-id=\"b60bcf85-e4bb-4b89-9153-d74823eae8ef\" /><p /><ac:structured-macro ac:name=\"note\" ac:schema-version=\"1\" ac:macro-id=\"fb76c497-b409-49fa-90ab-a1e770c9e48c\"><ac:rich-text-body><p> Note: The BMW-ProNet platform only works in chrome. It does <strong>not</strong> work in Edge</p></ac:rich-text-body></ac:structured-macro><h2>End-2-End Walk-through</h2><p><a href=\"https://tigplc.sharepoint.com/:v:/s/ReleaseNotes/ERP9u6fhwYpBgprO8-ad1zkBdAA4wEP2QLwfEVniSqNVsQ?e=4dxWYp&amp;nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZyIsInJlZmVycmFsQXBwUGxhdGZvcm0iOiJXZWIiLCJyZWZlcnJhbE1vZGUiOiJ2aWV3In19\">BMW-ProNet walkthrough demo.mp4</a></p><h2>Create order in Gateway and accept it in BMW</h2><ol start=\"1\"><li><p>Allocate an order with OEM service type to a supplier with a BMW ProNet Feed of &ldquo;DE791006&rdquo;. (i,e. BMW-ProNet OEM Supplier in test)</p></li><li><p>Open <a href=\"https://www-ct.audanet.de/sso/login?service=https%3a%2f%2fwww-ct.audanet.de%2fbreclient\">https://www-ct.audanet.de/sso/login?service=https%3a%2f%2fwww-ct.audanet.de%2fbreclient</a> and login with</p><ol start=\"1\"><li><p>B.Pankow.engineer1</p></li><li><p>bmw-afaf</p></li></ol></li><li><p>Click on Accident &amp; Glass (<strong>Body &amp; Repair</strong>)</p></li><li><p>Click on Entry&nbsp;(<strong>Assignments</strong>)</p></li><li><p>Accept order by</p><ol start=\"1\"><li><p>clicking on the 3 dots at the end of the order and accepting it</p></li><li><p>opening the order and accept via button</p></li></ol></li><li><p>Click on NEW K&amp;L Case</p></li><li><p>Fill in mandatory fields</p><ol start=\"1\"><li><p>VIN WBA1R51030V755195 --&gt; BMW car please (<strong>COME</strong>)</p></li><li><p>mileage</p></li><li><p>Damage cause (Not marked as mandatory, but is)</p></li><li><p>Add min. 1 picture against a car part in the Damage assessment (<strong>DamageCapturing</strong>) screen via the Upload Photos button</p></li></ol></li><li><p>Click on Damage assessment and calculate (<strong>DamageCapturing</strong>)</p></li><li><p>Click on Calculation view (<strong>Results</strong>)</p><ol start=\"1\"><li><p>Click on Calculate to generate calculation</p></li><li><p>Select the calculation you want to send (checkbox)</p></li></ol></li><li><p>Click on Calculation Release (<strong>Request Approval)</strong></p><ol start=\"1\"><li><p>Click on send</p></li></ol></li></ol><p /><h2>To receive the estimate in Gateway after accepting the order in BMW</h2><ol start=\"1\"><li><p>Log in to the IG Provider account, check the calculation</p><ol start=\"1\"><li><p><a href=\"mailto:Test.AP@audatex.de\">Test.AP@audatex.de</a></p></li><li><p>demo</p></li></ol></li><li><p>Same process as known</p><ol start=\"1\"><li><p>accept order</p></li><li><p>Click on icon with burger menu and tick</p></li><li><p>Go to RCA (repair cost acceptance) page</p></li><li><p>Choose RulesCheck status to be Freigegeben (approved) to release estimate</p></li><li><p>Go to send symbol (mail)</p></li><li><p>Ensure receiver is Innovation Group - it should be by default, if it isn&rsquo;t select it from the receiver tab</p></li><li><p>click on send</p></li></ol></li></ol><p /><p>Log in to the IG Provider account, check the calculation (see video to approve and send to Gateway): </p><ac:image ac:align=\"left\" ac:layout=\"align-start\" ac:original-height=\"720\" ac:original-width=\"1152\" ac:width=\"340\"><ri:attachment ri:filename=\"release an estimate from Audanet - IG Provider.mp4\" ri:version-at-save=\"1\" /></ac:image><p />",
+      "representation": "storage",
+      "embeddedContent": [],
+      "_expandable": {
+        "content": "/rest/api/content/2139684865"
+      }
+    },
+    "_expandable": {
+      "editor": "",
+      "atlas_doc_format": "",
+      "view": "",
+      "export_view": "",
+      "styled_view": "",
+      "dynamic": "",
+      "editor2": "",
+      "anonymous_export_view": ""
+    }
+  },
+  "metadata": {
+    "labels": {
+      "results": [],
+      "start": 0,
+      "limit": 200,
+      "size": 0,
+      "_links": {
+        "next": "/rest/api/content/2139684865/label?next=true&limit=200&start=200",
+        "self": "https://innovationgroup.atlassian.net/wiki/rest/api/content/2139684865/label"
+      }
+    },
+    "_expandable": {
+      "lastEditedTime": "",
+      "currentuser": "",
+      "comments": "",
+      "createdBySpaceBlueprint": "",
+      "isActiveLiveEditSession": "",
+      "sourceTemplateEntityId": "",
+      "simple": "",
+      "properties": "",
+      "frontend": "",
+      "likes": ""
+    }
+  },
+  "extensions": {
+    "position": 448001780
+  },
+  "_expandable": {
+    "childTypes": "",
+    "container": "/rest/api/space/IPE",
+    "schedulePublishInfo": "",
+    "operations": "",
+    "schedulePublishDate": "",
+    "children": "/rest/api/content/2139684865/child",
+    "restrictions": "/rest/api/content/2139684865/restriction/byOperation",
+    "history": "/rest/api/content/2139684865/history",
+    "ancestors": "",
+    "draftVersion": "",
+    "descendants": "/rest/api/content/2139684865/descendant",
+    "space": "/rest/api/space/IPE"
+  },
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=2139684865",
+    "webui": "/spaces/IPE/pages/2139684865/How+to+BMW-ProNet+for+Steered+cases",
+    "edituiv2": "/spaces/IPE/pages/edit-v2/2139684865",
+    "context": "/wiki",
+    "self": "https://innovationgroup.atlassian.net/wiki/rest/api/content/2139684865",
+    "tinyui": "/x/AQCJfw",
+    "collection": "/rest/api/content",
+    "base": "https://innovationgroup.atlassian.net/wiki"
+  }
+}

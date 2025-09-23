@@ -1,0 +1,13 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140' fill='none'>
+  <!-- Transparent background version: removed solid rect -->
+  <!-- Vertical bars -->
+  <rect x='34' y='32' width='10' height='76' rx='5' fill='#083A9F'/>
+  <rect x='52' y='20' width='12' height='100' rx='6' fill='#0A4CBF'/>
+  <rect x='74' y='20' width='12' height='100' rx='6' fill='#0A4CBF'/>
+  <rect x='94' y='32' width='10' height='76' rx='5' fill='#083A9F'/>
+  <!-- Accent dots -->
+  <circle cx='44' cy='24' r='6' fill='#083A9F'/>
+  <circle cx='44' cy='116' r='6' fill='#083A9F'/>
+  <circle cx='96' cy='24' r='6' fill='#083A9F'/>
+  <circle cx='96' cy='116' r='6' fill='#083A9F'/>
+</svg>

@@ -1,0 +1,250 @@
+{
+  "Payloads": [
+    {
+      "MessageType": 10,
+      "Payload": {
+        "ExternalReference": "E_CHANGEME",
+        "TransportReference": null,
+        "OrderItemDetails": [
+          {
+            "OrderItemType": 0,
+            "OrderItemSubType": 0,
+            "ServiceType": "ST01",
+            "ReservationCode": null,
+            "ReservationCodeExternalReference": null,
+            "SupplierId": "REPAIRERDE1",
+            "BookInDate": "2025-09-19T15:21:20.9397595+00:00",
+            "BookInTimeSlot": 0
+          }
+        ],
+        "BranchName": null,
+        "EmployeeName": null,
+        "BrokerName": null,
+        "BrokerEmployeeName": null,
+        "BrokerReference": null,
+        "FirstNotificationReportee": 2,
+        "NotificationDateTime": "2025-09-17T15:21:20.5192139+00:00",
+        "IsInfoOnly": false,
+        "PrimaryContactType": 0,
+        "InsurancePolicy": {
+          "InsurerId": "5515 000",
+          "PolicyNumber": "Policy123",
+          "InsurerExtRef": "E_PPSUG16212054944",
+          "PolicyStartDate": "2025-09-17T15:21:20.5495859+00:00",
+          "PolicyEndDate": "2026-07-15T15:21:20.5496251+00:00",
+          "InsuranceCoverType": 0,
+          "Excess": 100,
+          "ExcessPercentage": null,
+          "Premium": null,
+          "IsFullLiabilityCoverage": null,
+          "CustomerBoundToBodyShop": 2,
+          "ServiceId": null,
+          "PolicyProductName": null,
+          "IsCoverageVerified": null,
+          "ExcessType": 2
+        },
+        "IncidentDetails": {
+          "IncidentDateTime": "2025-09-17T15:21:20+00:00",
+          "IncidentType": 0,
+          "IncidentCause": "DEMC01",
+          "IncidentSubCause": "DESC01",
+          "IncidentCircumstances": "In the drive way",
+          "IsCctvFootage": false,
+          "IsDashcamFootage": false,
+          "IsPropertyDamage": false,
+          "PropertyDamageDetails": null,
+          "InjuryDetails": null,
+          "DriverDetail": {
+            "IsDriverAtFault": false,
+            "NonFaultDetails": null,
+            "HasPreviousIncidents": false,
+            "HasPreviousConvictions": false,
+            "PreviousConvictions": null,
+            "HasMedicalConditions": false,
+            "MedicalConditions": null,
+            "HasDriverConsumedAlcohol": false,
+            "HasDriverConsumedMedication": false,
+            "WasUsingMobilePhone": false
+          },
+          "RoadConditions": {
+            "SpeedLimit": 70,
+            "WeatherConditions": 0,
+            "Visibility": 0,
+            "RoadConditions": 0,
+            "RoadType": 0,
+            "RoadSurface": 0,
+            "WasRoadSpillage": false
+          },
+          "JourneyDetail": {
+            "JourneyPurpose": 1,
+            "WhereJourneyBegan": "Home",
+            "WhereJourneyIntendedToEnd": "Office",
+            "HadTrailorAttached": false
+          },
+          "TheftDetail": null,
+          "IncidentLocation": {
+            "IsExactAddressKnown": false,
+            "IncidentAddress": null,
+            "ApproximateIncidentLocation": "Closer Proximity"
+          }
+        },
+        "VehicleId": "EXT_REF_VEHICLE_CHANGEME",
+        "VehicleDamage": {
+          "IsDamageKnown": false,
+          "IsDamaged": false,
+          "PreIncidentDamage": 2,
+          "PreIncidentDamageDetails": "Damaged",
+          "Drivable": 0,
+          "RoadWorthy": 0,
+          "HasVehicleRolled": false,
+          "HasAirbagsDeployed": false,
+          "IsDamageSameAsPrevious": false,
+          "DamageDetails": null,
+          "IsPartsDamagedKnown": false,
+          "Area01": null,
+          "Area02": null,
+          "Area03": null,
+          "Area04": null,
+          "Area05": null,
+          "Area06": null,
+          "Area07": null,
+          "Area08": null,
+          "Area09": null,
+          "Area10": null,
+          "Area11": null,
+          "Area12": null,
+          "Area13": null,
+          "Area14": null,
+          "Area15": null
+        },
+        "CurrentVehicleLocation": 0,
+        "VehicleLocation": {
+          "AddressType": 0,
+          "AddressLine1": "Alfalter 91",
+          "AddressLine2": null,
+          "AddressLine3": null,
+          "City": "Berlin",
+          "StateProvinceCounty": null,
+          "PostalCode": "91230",
+          "CountryIsoNumber": 276
+        },
+        "IsVehicleInStorage": false,
+        "VehicleLocationDetails": "Vehicle is at Home",
+        "IsPickupRequired": false,
+        "IsDeliveryRequired": false,
+        "IsCourtesyCarRequired": false,
+        "PolicyHolderId": "EXT_REF_POLICYHOLDER_CHANGEME",
+        "PrimaryContactId": null,
+        "DriverId": null,
+        "ThirdParties": null,
+        "Witnesses": null,
+        "Passengers": null,
+        "EmergencyServices": null,
+        "EmergencyServiceContacts": null,
+        "Files": [],
+        "GatewayReference": null,
+        "ClaimHandlerEmployeeName": null,
+        "ClaimHandlerPhoneNumber": null,
+        "FnolServiceInformation": null,
+        "IsVehicleLeased": null,
+        "ReportingSupplierId": null,
+        "DataItems": {}
+      },
+      "UpdatePolicy": null,
+      "OcrModelId": null
+    },
+    {
+      "MessageType": 11,
+      "Payload": {
+        "Title": 1,
+        "FirstName": "DAT-Basic",
+        "LastName": "Hessel14",
+        "DateOfBirth": null,
+        "Organisation": {
+          "CompanyTradeName": "DAT2.0 Company",
+          "CompanyLegalName": "DAT2.0 Company",
+          "VatNumber": null
+        },
+        "Language": null,
+        "Phones": [
+          {
+            "PhoneNumber": "1985212158",
+            "PhoneType": 2,
+            "IsPreferred": false,
+            "CountryIsoNumber": 276
+          },
+          {
+            "PhoneNumber": "07987654343",
+            "PhoneType": 1,
+            "IsPreferred": false,
+            "CountryIsoNumber": 276
+          }
+        ],
+        "Emails": [
+          {
+            "EmailAddress": "cathy_casper@pacochabradtke.com",
+            "IsPreferred": true,
+            "EmailType": 0
+          }
+        ],
+        "Address": [
+          {
+            "AddressType": 1,
+            "AddressLine1": "Alfalter 91",
+            "AddressLine2": "",
+            "AddressLine3": "",
+            "City": "Cochem",
+            "StateProvinceCounty": "",
+            "PostalCode": "61118",
+            "CountryIsoNumber": 276
+          }
+        ],
+        "ExternalReference": "EXT_REF_POLICYHOLDER_CHANGEME",
+        "IsVATRegistered": true,
+        "Occupation": null,
+        "IsDriver": true,
+        "IsPrimaryContact": true,
+        "EntityMessageType": 1,
+        "GatewayReference": null
+      },
+      "UpdatePolicy": null,
+      "OcrModelId": null
+    },
+    {
+      "MessageType": 9,
+      "Payload": {
+        "Vin": "KAJ0061HT5U9WCYY0",
+        "VehicleRegistrationState": 1,
+        "VehicleType": "Car",
+        "ConstructionYear": 2019,
+        "Mileage": 2100,
+        "MileageUnitType": 1,
+        "AdditionalVehicleInformation": null,
+        "Vrn": "RÜB-ZB 7844",
+        "Make": "Volkswagen",
+        "Model": "Golf",
+        "RegistrationDate": "2007-03-02T00:00:00+00:00",
+        "EngineSize": 2000,
+        "BodyType": null,
+        "Transmission": 0,
+        "IsVehicleLeased": null,
+        "Colour": null,
+        "CarClass": null,
+        "Trim": null,
+        "DriveType": null,
+        "Bhp": 0,
+        "FuelType": 0,
+        "ExternalReference": "EXT_REF_VEHICLE_CHANGEME",
+        "EntityMessageType": 1,
+        "GatewayReference": null
+      },
+      "UpdatePolicy": null,
+      "OcrModelId": null
+    }
+  ],
+  "UpdatePolicy": null,
+  "BatchReference": "AutoBR_CHANGEME",
+  "Signature": "Signature",
+  "ErrorPolicy": 0,
+  "DuplicatePolicy": 0
+}

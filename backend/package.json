@@ -1,0 +1,41 @@
+{
+  "name": "qa-break-room-backend",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "nodemon --ext js,mjs,cjs,env src/app.js",
+    "start": "node src/app.js",
+    "ingest:confluence": "node scripts/ingestConfluence.js",
+    "confluence:find": "node scripts/findConfluencePage.js",
+    "confluence:resolve": "node scripts/resolveConfluenceIds.js"
+  },
+  "dependencies": {
+    "@langchain/community": "0.3.55",
+    "@langchain/openai": "0.3.7",
+    "@sendgrid/mail": "^8.1.6",
+    "cheerio": "1.0.0-rc.12",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "ignore": "5.3.1",
+    "jsdom": "22.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "langchain": "0.2.20",
+    "mongoose": "^8.5.1",
+    "openai": "4.67.3",
+    "global-agent": "^3.0.0",
+    "win-ca": "^3.5.0",
+    "socket.io": "^4.7.5",
+    "zod": "3.23.8"
+  },
+  "overrides": {
+    "openai": "4.67.3",
+    "ignore": "5.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

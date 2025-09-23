@@ -1,0 +1,136 @@
+{
+  "id": "2189066300",
+  "type": "page",
+  "ari": "ari:cloud:confluence:27707bf3-6ed7-46de-a8c6-2b5516bb49cc:page/2189066300",
+  "base64EncodedAri": "YXJpOmNsb3VkOmNvbmZsdWVuY2U6Mjc3MDdiZjMtNmVkNy00NmRlLWE4YzYtMmI1NTE2YmI0OWNjOmNvbnRlbnQvMjE4OTA2NjMwMA==",
+  "status": "current",
+  "title": "How to DAT for Mercedes OEM",
+  "version": {
+    "by": {
+      "type": "known",
+      "accountId": "633dd4c197148a8301fefdfd",
+      "accountType": "atlassian",
+      "email": "",
+      "publicName": "Nico.Walter",
+      "profilePicture": {
+        "path": "/wiki/aa-avatar/633dd4c197148a8301fefdfd",
+        "width": 48,
+        "height": 48,
+        "isDefault": false
+      },
+      "displayName": "Nico.Walter",
+      "isExternalCollaborator": false,
+      "isGuest": false,
+      "locale": "de",
+      "accountStatus": "active",
+      "_expandable": {
+        "operations": "",
+        "personalSpace": ""
+      },
+      "_links": {
+        "self": "https://innovationgroup.atlassian.net/wiki/rest/api/user?accountId=633dd4c197148a8301fefdfd"
+      }
+    },
+    "when": "2025-07-02T09:01:42.436Z",
+    "friendlyWhen": "Jul 02, 2025",
+    "message": "",
+    "number": 13,
+    "minorEdit": false,
+    "ncsStepVersion": "168",
+    "ncsStepVersionSource": "ncs-ack",
+    "confRev": "confluence$content$2189066300.52",
+    "contentTypeModified": false,
+    "_expandable": {
+      "collaborators": "",
+      "content": "/rest/api/content/2189066300"
+    },
+    "_links": {
+      "self": "https://innovationgroup.atlassian.net/wiki/rest/api/content/2189066300/version/13"
+    }
+  },
+  "macroRenderedOutput": {},
+  "body": {
+    "storage": {
+      "value": "<ac:layout><ac:layout-section ac:type=\"fixed-width\" ac:breakout-mode=\"default\"><ac:layout-cell><table data-table-width=\"1800\" data-layout=\"full-width\" ac:local-id=\"85f072e1-c953-44f9-87b6-3f5c68f0dfba\"><colgroup><col style=\"width: 826.0px;\" /><col style=\"width: 974.0px;\" /></colgroup><tbody><tr><td><p>DAT Demo Recording</p></td><td><p><a href=\"https://tigplc-my.sharepoint.com/:v:/g/personal/nico_walter_gatewaydigital_services/ESLdfDtrXhpGpbHbVql--RQBDINlxxDw_S93KjzD4roOtQ?e=x9HR8K&amp;nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D\">Introduction to DAT MB-20241219_141036-Meeting Recording 1.mp4</a></p></td></tr><tr><td><p>DAT Login Credentials</p></td><td><p><span style=\"background-color: rgb(253,208,236);\">This is only now only the claim check account for DAT 2.0</span></p><p><span style=\"background-color: rgb(253,208,236);\"><del>MAIN ACCOUNT</del></span></p><p><a href=\"https://gold.dat.de/\" data-card-appearance=\"inline\">https://gold.dat.de/</a><span style=\"background-color: rgb(253,208,236);\"><del>  </del></span></p><p><span style=\"background-color: rgb(253,208,236);\"><del>ID: 1345438</del></span></p><p><span style=\"background-color: rgb(253,208,236);\"><del>Username: innovationTester</del></span></p><p><span style=\"background-color: rgb(253,208,236);\"><del>Password: A1!87{3047@iyPYWJ</del></span></p><p><strong>MAIN ACCOUNT</strong></p><p><a href=\"https://gold.dat.de/\" data-card-appearance=\"inline\">https://gold.dat.de/</a> </p><p>ID: <code>1348697</code></p><p>Username: <code>GatewayDigital</code></p><p>Password: <code>1WC2%D2hLm6yk{N_RH{j</code></p><p><strong>BODYSHOP ACCOUNT</strong></p><p><a href=\"https://gold.dat.de/\" data-card-appearance=\"inline\">https://gold.dat.de/</a></p><p>ID: <code>1307901</code></p><p>Username: <code>GDSTester</code></p><p>Password: <code>81#wo@QSS8w@o32ZH</code></p><p><strong>BODYSHOP INTEGRATION REFS ('Business/Dealership number' field)</strong></p><p>TST = 22300 </p><p>UAT = 22400</p><p><strong>VIN to use: </strong><code>WDC2049011G151898</code></p></td></tr><tr><td><p>Mercedes OEM E2E Tests</p></td><td><p><ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\" ac:macro-id=\"62db7c27-ea3d-4a2c-9f50-46745e675bbd\"><ac:parameter ac:name=\"key\">GAT-142241</ac:parameter><ac:parameter ac:name=\"serverId\">e1683566-1da9-331e-b28a-c4fe1b32fb9e</ac:parameter><ac:parameter ac:name=\"server\">System Jira</ac:parameter></ac:structured-macro> </p></td></tr></tbody></table><ol start=\"1\"><li><p>Login with the <strong>Bodyshop </strong>account</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"596\" ac:original-width=\"1894\" ac:custom-width=\"true\" ac:alt=\"image-20250206-113620.png\" ac:width=\"736\"><ri:attachment ri:filename=\"image-20250206-113620.png\" ri:version-at-save=\"1\" /></ac:image></li><li><p>Select <strong>SilverDAT myClaim</strong></p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"688\" ac:original-width=\"1404\" ac:custom-width=\"true\" ac:alt=\"image-20250206-113748.png\" ac:width=\"736\"><ri:attachment ri:filename=\"image-20250206-113748.png\" ri:version-at-save=\"1\" /></ac:image></li></ol><p /><ol start=\"3\"><li><p>Select <strong>+ New order</strong></p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"421\" ac:original-width=\"1909\" ac:custom-width=\"true\" ac:alt=\"image-20250206-113953.png\" ac:width=\"736\"><ri:attachment ri:filename=\"image-20250206-113953.png\" ri:version-at-save=\"1\" /></ac:image><p /></li><li><p>In the Select Template modal, select <strong>Daimler AG</strong> &gt; <strong>MB Karosserie &amp; Lack</strong></p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"195\" ac:original-width=\"574\" ac:custom-width=\"true\" ac:alt=\"image-20250206-114139.png\" ac:width=\"574\"><ri:attachment ri:filename=\"image-20250206-114139.png\" ri:version-at-save=\"1\" /></ac:image><p /></li><li><p>Fill in the mandatory <strong>Order number </strong>field, and leave the radio buttons selections unchanged</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"388\" ac:original-width=\"1141\" ac:custom-width=\"true\" ac:alt=\"image-20250206-133906.png\" ac:width=\"736\"><ri:attachment ri:filename=\"image-20250206-133906.png\" ri:version-at-save=\"1\" /></ac:image><p /></li><li><p>In <strong>Insurance</strong> select <strong>Allianz Versicherungs-AG</strong></p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"123\" ac:original-width=\"546\" ac:custom-width=\"true\" ac:alt=\"image-20250206-115916.png\" ac:width=\"546\"><ri:attachment ri:filename=\"image-20250206-115916.png\" ri:version-at-save=\"1\" /></ac:image><p /></li><li><p>Fill in all mandatory fields in <strong>Versicherungsnehmer </strong>and <strong>Vehicle</strong> sections, then set <br /><strong>VIN </strong>= WDC2049011G151898</p></li></ol></ac:layout-cell></ac:layout-section><ac:layout-section ac:type=\"two_equal\" ac:breakout-mode=\"default\"><ac:layout-cell><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"663\" ac:original-width=\"573\" ac:custom-width=\"true\" ac:alt=\"image-20250206-134040.png\" ac:width=\"354\"><ri:attachment ri:filename=\"image-20250206-134040.png\" ri:version-at-save=\"1\" /></ac:image><p /></ac:layout-cell><ac:layout-cell><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"319\" ac:original-width=\"567\" ac:custom-width=\"true\" ac:alt=\"image-20250206-134209.png\" ac:width=\"354\"><ri:attachment ri:filename=\"image-20250206-134209.png\" ri:version-at-save=\"1\" /></ac:image><p /></ac:layout-cell></ac:layout-section><ac:layout-section ac:type=\"fixed-width\" ac:breakout-mode=\"default\"><ac:layout-cell><ol start=\"8\"><li><p>Select <strong>VIN request</strong> and click the <strong>Finished</strong> button in the <strong>Note </strong>modal without selecting an existing order that has the same VIN. The vehicle details will be displayed afterwards.</p></li></ol><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"183\" ac:original-width=\"847\" ac:custom-width=\"true\" ac:alt=\"image-20250206-121226.png\" ac:width=\"760\"><ri:attachment ri:filename=\"image-20250206-121226.png\" ri:version-at-save=\"1\" /></ac:image><ol start=\"9\"><li><p>Fill in the mandatory (*) <strong>Insurance</strong><em><strong> </strong></em>details fields. For <strong>Insurance type</strong>: <br />MTPL = Liability<br />MOD (partly) = partial comprehensive<br />MOD (full) = full comprehensive</p></li></ol></ac:layout-cell></ac:layout-section><ac:layout-section ac:type=\"two_equal\" ac:breakout-mode=\"default\"><ac:layout-cell><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"644\" ac:original-width=\"564\" ac:custom-width=\"true\" ac:alt=\"image-20250206-134525.png\" ac:width=\"390\"><ri:attachment ri:filename=\"image-20250206-134525.png\" ri:version-at-save=\"1\" /></ac:image></ac:layout-cell><ac:layout-cell><p>If Insurance Type = MTPL, fill in the mandatory fields in <strong>Other policy holder</strong> section</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"609\" ac:original-width=\"567\" ac:custom-width=\"true\" ac:alt=\"image-20250206-135005.png\" ac:width=\"354\"><ri:attachment ri:filename=\"image-20250206-135005.png\" ri:version-at-save=\"1\" /></ac:image></ac:layout-cell></ac:layout-section><ac:layout-section ac:type=\"fixed-width\" ac:breakout-mode=\"default\"><ac:layout-cell><ol start=\"10\"><li><p>Click <strong>Save</strong></p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"114\" ac:original-width=\"293\" ac:custom-width=\"true\" ac:alt=\"image-20250206-135032.png\" ac:width=\"237\"><ri:attachment ri:filename=\"image-20250206-135032.png\" ri:version-at-save=\"1\" /></ac:image><p><br />Then fill in the mandatory <strong>Business/dealership number</strong> field that appears after the page finishes loading</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"125\" ac:original-width=\"562\" ac:custom-width=\"true\" ac:alt=\"image-20250206-135223.png\" ac:width=\"420\"><ri:attachment ri:filename=\"image-20250206-135223.png\" ri:version-at-save=\"1\" /></ac:image><p>TST: 22300<br />UAT: 22400</p><p> </p></li><li><p>In the <strong>Parts selection</strong> tab, select parts to be repaired then confirm each part via 1 of the 2 checkboxes (in column <strong>E</strong>) shown in the screenshot</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"580\" ac:original-width=\"1389\" ac:custom-width=\"true\" ac:alt=\"image-20250206-135901.png\" ac:width=\"736\"><ri:attachment ri:filename=\"image-20250206-135901.png\" ri:version-at-save=\"1\" /></ac:image><p /></li><li><p>Click the <strong>Calculation </strong>tab</p></li></ol><ul><li><p>If you get the error below, then select <strong>Procedure-related data </strong>tab first before clicking the <strong>Calculation </strong>tab</p></li></ul><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"118\" ac:original-width=\"239\" ac:custom-width=\"true\" ac:alt=\"image-20250206-140358.png\" ac:width=\"253\"><ri:attachment ri:filename=\"image-20250206-140358.png\" ri:version-at-save=\"1\" /></ac:image><p>Then an entry should appear in the <strong>Calculations</strong> frame on the right</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"302\" ac:original-width=\"354\" ac:custom-width=\"true\" ac:alt=\"image-20250206-140642.png\" ac:width=\"302\"><ri:attachment ri:filename=\"image-20250206-140642.png\" ri:version-at-save=\"1\" /></ac:image><p>(Optional) A note to the insurer can be added in the <strong>Nachricht an die Versicherung</strong> field</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"137\" ac:original-width=\"654\" ac:custom-width=\"true\" ac:alt=\"image-20250206-140846.png\" ac:width=\"560\"><ri:attachment ri:filename=\"image-20250206-140846.png\" ri:version-at-save=\"1\" /></ac:image><p>(Optional) The <strong>Add chat message</strong> button can also be used to create a comment on the claim, which will show up in the <strong>History</strong> frame on the right, alongside all other key actions performed</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"528\" ac:original-width=\"891\" ac:custom-width=\"true\" ac:alt=\"image-20250206-141017.png\" ac:width=\"612\"><ri:attachment ri:filename=\"image-20250206-141017.png\" ri:version-at-save=\"1\" /></ac:image><p>(Optional) The repair duration can be set in the <strong>Hinweise auf dem KVA</strong> field</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"73\" ac:original-width=\"391\" ac:custom-width=\"true\" ac:alt=\"image-20250206-142952.png\" ac:width=\"391\"><ri:attachment ri:filename=\"image-20250206-142952.png\" ri:version-at-save=\"1\" /></ac:image><p> 13. If sending a Calculation, then an attachment file needs to be uploaded in the <strong>Bilder und Gutachten </strong>section via the highlighted button</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"270\" ac:original-width=\"732\" ac:custom-width=\"true\" ac:alt=\"image-20250206-143141.png\" ac:width=\"484\"><ri:attachment ri:filename=\"image-20250206-143141.png\" ri:version-at-save=\"1\" /></ac:image><p>(Optional) Invoice attachment files can be uploaded in <strong>Rechnung</strong> section</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"256\" ac:original-width=\"733\" ac:custom-width=\"true\" ac:alt=\"image-20250206-143305.png\" ac:width=\"471\"><ri:attachment ri:filename=\"image-20250206-143305.png\" ri:version-at-save=\"1\" /></ac:image><p /><ol start=\"14\"><li><p>The claim can then be set via the <strong>KVA versenden</strong> button </p></li></ol><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"288\" ac:original-width=\"355\" ac:custom-width=\"true\" ac:alt=\"image-20250206-143456.png\" ac:width=\"273\"><ri:attachment ri:filename=\"image-20250206-143456.png\" ri:version-at-save=\"1\" /></ac:image><p>And this message will be displayed while the claim is awaiting approval</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"41\" ac:original-width=\"404\" ac:custom-width=\"true\" ac:alt=\"image-20250206-143556.png\" ac:width=\"354\"><ri:attachment ri:filename=\"image-20250206-143556.png\" ri:version-at-save=\"1\" /></ac:image><ol start=\"15\"><li><p>Now log in with the <strong>Main Account</strong>, select <strong>SilverDAT myClaim </strong>with the Mercedes logo, then find and open the claim created</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"342\" ac:original-width=\"727\" ac:custom-width=\"true\" ac:alt=\"image-20250206-144315.png\" ac:width=\"443\"><ri:attachment ri:filename=\"image-20250206-144315.png\" ri:version-at-save=\"1\" /></ac:image><p /></li><li><p>Select the <strong>Status</strong> frame on the right</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"66\" ac:original-width=\"246\" ac:custom-width=\"true\" ac:alt=\"image-20250206-144810.png\" ac:width=\"246\"><ri:attachment ri:filename=\"image-20250206-144810.png\" ri:version-at-save=\"1\" /></ac:image><p /></li><li><p>In the <strong>Status change</strong> modal, set the status of the claim<br />Abegilehnt = Rejected<br />Freigegeben = Approved<br />Reduziert freigegeben = Reduce the calculation amount before approve<br />Gutachter beauftragt = Assessor requested (this status blocks the claim)</p><ac:image ac:align=\"center\" ac:layout=\"center\" ac:original-height=\"283\" ac:original-width=\"1006\" ac:custom-width=\"true\" ac:alt=\"image-20250206-144840.png\" ac:width=\"736\"><ri:attachment ri:filename=\"image-20250206-144840.png\" ri:version-at-save=\"1\" /></ac:image><p /></li></ol></ac:layout-cell></ac:layout-section></ac:layout>",
+      "representation": "storage",
+      "embeddedContent": [],
+      "_expandable": {
+        "content": "/rest/api/content/2189066300"
+      }
+    },
+    "_expandable": {
+      "editor": "",
+      "atlas_doc_format": "",
+      "view": "",
+      "export_view": "",
+      "styled_view": "",
+      "dynamic": "",
+      "editor2": "",
+      "anonymous_export_view": ""
+    }
+  },
+  "metadata": {
+    "labels": {
+      "results": [
+        {
+          "prefix": "global",
+          "name": "mercedes-oem",
+          "id": "2625013462",
+          "label": "mercedes-oem"
+        },
+        {
+          "prefix": "global",
+          "name": "dsn",
+          "id": "2625667134",
+          "label": "dsn"
+        }
+      ],
+      "start": 0,
+      "limit": 200,
+      "size": 2,
+      "_links": {
+        "next": "/rest/api/content/2189066300/label?next=true&limit=200&start=200",
+        "self": "https://innovationgroup.atlassian.net/wiki/rest/api/content/2189066300/label"
+      }
+    },
+    "_expandable": {
+      "lastEditedTime": "",
+      "currentuser": "",
+      "comments": "",
+      "createdBySpaceBlueprint": "",
+      "isActiveLiveEditSession": "",
+      "sourceTemplateEntityId": "",
+      "simple": "",
+      "properties": "",
+      "frontend": "",
+      "likes": ""
+    }
+  },
+  "extensions": {
+    "position": 9212
+  },
+  "_expandable": {
+    "childTypes": "",
+    "container": "/rest/api/space/PT",
+    "schedulePublishInfo": "",
+    "operations": "",
+    "schedulePublishDate": "",
+    "children": "/rest/api/content/2189066300/child",
+    "restrictions": "/rest/api/content/2189066300/restriction/byOperation",
+    "history": "/rest/api/content/2189066300/history",
+    "ancestors": "",
+    "draftVersion": "",
+    "descendants": "/rest/api/content/2189066300/descendant",
+    "space": "/rest/api/space/PT"
+  },
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=2189066300",
+    "webui": "/spaces/PT/pages/2189066300/How+to+DAT+for+Mercedes+OEM",
+    "edituiv2": "/spaces/PT/pages/edit-v2/2189066300",
+    "context": "/wiki",
+    "self": "https://innovationgroup.atlassian.net/wiki/rest/api/content/2189066300",
+    "tinyui": "/x/PIB6gg",
+    "collection": "/rest/api/content",
+    "base": "https://innovationgroup.atlassian.net/wiki"
+  }
+}

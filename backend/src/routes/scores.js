@@ -1,0 +1,10 @@
+import { Router } from "express";
+import { requireAuth } from "../middleware/auth.js";
+import { topScores, overallLeaderboard, achievements, submitScore, myAchievements } from "../controllers/gameController.js";
+const r = Router();
+r.get("/", requireAuth, topScores);
+r.post("/", requireAuth, submitScore);
+r.get("/overall", requireAuth, overallLeaderboard);
+r.get("/achievements", requireAuth, achievements);
+r.get("/my-achievements", requireAuth, myAchievements);
+export default r;

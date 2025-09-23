@@ -1,0 +1,267 @@
+{
+  "Payloads": [
+    {
+      "MessageType": 10,
+      "Payload": {
+        "externalReference": "E_CHANGEME",
+        "transportReference": "TRANSPORT_CHANGEME",
+        "orderItemDetails": [
+          {
+            "orderItemType": 0,
+            "orderItemSubType": 0,
+            "serviceType": "ST01",
+            "supplierId": "REPAIRERDE1",
+            "bookInDate": "2025-09-19T21:21:39.921Z",
+            "bookInTimeSlot": 0,
+            "comments": "Test allocation comment"
+          }
+        ],
+        "firstNotificationReportee": 0,
+        "notificationDateTime": "2025-09-18T20:21:39.921Z",
+        "isInfoOnly": false,
+        "primaryContactType": 0,
+        "insurancePolicy": {
+          "InsurerId": "AXAVerAG",
+          "PolicyNumber": "POLY_NO_CHANGEME",
+          "InsurerExtRef": "D_CHANGEME",
+          "PolicyStartDate": "2025-09-18T21:21:39.921Z",
+          "PolicyEndDate": "2026-09-18T21:21:39.921Z",
+          "InsuranceCoverType": 0,
+          "excessType": 2,
+          "Excess": 42,
+          "Premium": 100,
+          "IsFullLiabilityCoverage": false,
+          "CustomerBoundToBodyShop": 0,
+          "ServiceId": "SER_CHANGEME",
+          "PolicyProductName": null
+        },
+        "incidentDetails": {
+          "IncidentDateTime": "2025-09-18T20:21:39.921Z",
+          "IncidentType": 0,
+          "IncidentCause": "DEMC02",
+          "IncidentSubCause": "",
+          "IncidentCircumstances": "Test incident circumstances",
+          "IsCctvFootage": false,
+          "IsDashcamFootage": false,
+          "IsPropertyDamage": true,
+          "PropertyDamageDetails": "Test property damage details",
+          "InjuryDetails": "Test injury details",
+          "DriverDetail": {
+            "AtFault": true,
+            "NonFaultDetails": "Nothing available",
+            "HasPreviousIncidents": false,
+            "HasPreviousConvictions": false,
+            "PreviousConvictions": null,
+            "HasMedicalConditions": false,
+            "MedicalConditions": "",
+            "HasDriverConsumedAlcohol": false,
+            "HasDriverConsumedMedication": false,
+            "wasUsingMobilePhone": false
+          },
+          "RoadConditions": {
+            "SpeedLimit": 60,
+            "WeatherConditions": 0,
+            "Visibility": 1,
+            "RoadConditions": 2,
+            "RoadType": 3,
+            "RoadSurface": 0,
+            "WasRoadSpillage": false
+          },
+          "JourneyDetail": {
+            "JourneyPurpose": 1,
+            "WhereJourneyBegan": "Home",
+            "WhereJourneyIntendedToEnd": "Office",
+            "HadTrailorAttached": false
+          },
+          "TheftDetail": {
+            "WasKeyInIgnition": false,
+            "WasVehicleLocked": false,
+            "IsAlarmFitted": false,
+            "IsTrackerFitted": false,
+            "IsTrackerActivated": false,
+            "IsPersonalBelongingsLost": false,
+            "PersonalBelongingsLost": "Nothing specified"
+          },
+          "IncidentLocation": {
+            "IsExactAddressKnown": true,
+            "IncidentAddress": {
+              "AddressType": 10,
+              "AddressLine1": "Am Damm",
+              "AddressLine2": "",
+              "AddressLine3": null,
+              "City": "Essen",
+              "StateProvinceCounty": null,
+              "PostalCode": "45219",
+              "CountryIsoNumber": 276
+            },
+            "ApproximateIncidentLocation": "Closer Proximity"
+          }
+        },
+        "vehicleId": "EXT_REF_VEHICLE_CHANGEME",
+        "vehicleDamage": {
+          "IsDamageKnown": false,
+          "IsDamaged": false,
+          "PreIncidentDamage": 2,
+          "PreIncidentDamageDetails": "damaged",
+          "Drivable": 0,
+          "RoadWorthy": 0,
+          "HasVehicleRolled": false,
+          "HasAirbagsDeployed": true,
+          "IsDamageSameAsPrevious": false,
+          "DamageDetails": "Test damage details",
+          "IsPartsDamagedKnown": false
+        },
+        "currentVehicleLocation": 0,
+        "vehicleLocation": {
+          "AddressType": 11,
+          "AddressLine1": "Am Damm",
+          "AddressLine2": "",
+          "AddressLine3": null,
+          "City": "Essen",
+          "StateProvinceCounty": null,
+          "PostalCode": "45219",
+          "CountryIsoNumber": 276
+        },
+        "isVehicleInStorage": false,
+        "vehicleLocationDetails": "Test vehicle location details",
+        "isPickupRequired": false,
+        "isDeliveryRequired": false,
+        "isCourtesyCarRequired": false,
+        "policyHolderId": "EXT_REF_POLICYHOLDER_CHANGEME",
+        "thirdParties": null,
+        "witnesses": null,
+        "passengers": null,
+        "emergencyServices": null,
+        "emergencyServiceContacts": null,
+        "gatewayReference": null
+      },
+      "UpdatePolicy": null,
+      "OcrModelId": null
+    },
+    {
+      "MessageType": 11,
+      "Payload": {
+        "Title": "Mr",
+        "FirstName": "AutoC2L4",
+        "LastName": "UserPFTY5",
+        "DateOfBirth": "1974-11-03",
+        "Language": "de-DE",
+        "Phones": [
+          {
+            "PhoneNumber": "7112113114",
+            "phoneType": 2,
+            "CountryIsoNumber": 276
+          }
+        ],
+        "Emails": [
+          {
+            "EmailAddress": "int.dent@heartofgold.com",
+            "EmailType": 0
+          }
+        ],
+        "Address": [
+          {
+            "AddressType": 1,
+            "AddressLine1": "Premeusel 7",
+            "AddressLine2": "",
+            "AddressLine3": null,
+            "City": "Presseck",
+            "StateProvinceCounty": null,
+            "PostalCode": "95355",
+            "CountryIsoNumber": 276
+          }
+        ],
+        "ExternalReference": "EXT_REF_POLICYHOLDER_CHANGEME",
+        "IsVATRegistered": false,
+        "Occupation": "Radio",
+        "IsDriver": true,
+        "IsPrimaryContact": true,
+        "EntityMessageType": 1,
+        "GatewayReference": null
+      },
+      "UpdatePolicy": null,
+      "OcrModelId": null
+    },
+    {
+      "MessageType": 12,
+      "Payload": {
+        "Licence": {
+          "DateOfIssue": "2015-02-19T15:50:24.877+00:00",
+          "ExpiryDate": "2030-02-19T15:50:24.877+00:00",
+          "LicenceStatus": 0,
+          "IssuingBody": "DVLA",
+          "StateHeld": null,
+          "CancellationOrSuspensionDetails": null,
+          "MotorLicenceType": 0
+        },
+        "Title": "Mr",
+        "FirstName": "Arthur",
+        "LastName": "Test",
+        "Language": "de-DE",
+        "Phones": [
+          {
+            "PhoneNumber": "7112113114",
+            "phoneType": 2,
+            "IsPreferred": false,
+            "CountryIsoNumber": 276
+          }
+        ],
+        "Emails": [
+          {
+            "EmailAddress": "int.dent@heartofgold.com",
+            "IsPreferred": false,
+            "EmailType": 0
+          }
+        ],
+        "Address": [
+          {
+            "AddressType": 1,
+            "AddressLine1": "Premeusel 7",
+            "AddressLine2": "",
+            "AddressLine3": null,
+            "City": "Presseck",
+            "StateProvinceCounty": null,
+            "PostalCode": "95355",
+            "CountryIsoNumber": 276
+          }
+        ],
+        "ExternalReference": "DRIVER_EXT_CHANGEME",
+        "passengers": null,
+        "EntityMessageType": 1
+      },
+      "UpdatePolicy": null,
+      "OcrModelId": null
+    },
+    {
+      "MessageType": 9,
+      "Payload": {
+        "Vin": "UUCJHFTPXUTVY89BD",
+        "VehicleRegistrationState": 1,
+        "VehicleType": "Car",
+        "ConstructionYear": 2017,
+        "Mileage": 2100,
+        "AdditionalVehicleInformation": "Test additional vehicle information",
+        "Vrn": "VRN-8DC-1LR5",
+        "Make": "Volkswagen",
+        "Model": "Polo",
+        "RegistrationDate": "2016-02-05T16:42:10+00:00",
+        "EngineSize": 988,
+        "Transmission": 0,
+        "Colour": "Blue",
+        "DriveType": null,
+        "Bhp": 0,
+        "FuelType": 1,
+        "ExternalReference": "EXT_REF_VEHICLE_CHANGEME",
+        "EntityMessageType": 1,
+        "GatewayReference": null
+      },
+      "UpdatePolicy": null,
+      "OcrModelId": null
+    }
+  ],
+  "UpdatePolicy": null,
+  "BatchReference": "AutoBR_EXT_CHANGEME",
+  "Signature": "CHANGEME_Signature",
+  "ErrorPolicy": 0,
+  "DuplicatePolicy": 0
+}

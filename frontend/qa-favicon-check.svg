@@ -1,0 +1,26 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' width='64' height='64'>
+  <!-- Gradient background pill -->
+  <defs>
+    <linearGradient id='g2' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0%' stop-color='#072448'/>
+      <stop offset='100%' stop-color='#0B61D6'/>
+    </linearGradient>
+    <filter id='s' x='-30%' y='-30%' width='160%' height='160%'>
+      <feDropShadow dx='0' dy='2' stdDeviation='2' flood-color='rgba(0,0,0,0.45)'/>
+    </filter>
+  </defs>
+  <rect x='4' y='8' width='56' height='48' rx='14' fill='url(#g2)' filter='url(#s)'/>
+  <!-- Chat tail -->
+  <path d='M22 56c6-2 10-6 12-10H22z' fill='url(#g2)'/>
+  <!-- Letters QA (stroke emphasized for small rendering) -->
+  <g fill='none' stroke='#FFFFFF' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'>
+    <path d='M18 38c-4 0-8-4-8-10s4-10 8-10 8 4 8 10c0 3-1 6-3 7'/> <!-- Q main -->
+    <path d='M24 40l4 4'/> <!-- Q tail -->
+    <path d='M36 20l10 20 10-20'/> <!-- A shape -->
+    <path d='M40 32h12'/> <!-- A bar -->
+  </g>
+  <!-- Check mark overlay (slightly inset to avoid edges) -->
+  <path d='M26 46l6 6 14-14' fill='none' stroke='#4ADE80' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/>
+  <!-- Thin white outline behind check for contrast -->
+  <path d='M26 46l6 6 14-14' fill='none' stroke='rgba(255,255,255,0.65)' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' opacity='0.3'/>
+</svg>

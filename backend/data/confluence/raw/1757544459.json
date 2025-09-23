@@ -1,0 +1,123 @@
+{
+  "id": "1757544459",
+  "type": "page",
+  "ari": "ari:cloud:confluence:27707bf3-6ed7-46de-a8c6-2b5516bb49cc:page/1757544459",
+  "base64EncodedAri": "YXJpOmNsb3VkOmNvbmZsdWVuY2U6Mjc3MDdiZjMtNmVkNy00NmRlLWE4YzYtMmI1NTE2YmI0OWNjOmNvbnRlbnQvMTc1NzU0NDQ1OQ==",
+  "status": "current",
+  "title": "Gateway Testing Strategy",
+  "version": {
+    "by": {
+      "type": "known",
+      "accountId": "557058:217f7cdb-0fdc-4065-801c-eab3cd09141d",
+      "accountType": "atlassian",
+      "email": "manas.bhatnagar@innovation.group",
+      "publicName": "Manas Bhatnagar",
+      "profilePicture": {
+        "path": "/wiki/aa-avatar/557058:217f7cdb-0fdc-4065-801c-eab3cd09141d",
+        "width": 48,
+        "height": 48,
+        "isDefault": false
+      },
+      "displayName": "Manas Bhatnagar",
+      "isExternalCollaborator": false,
+      "isGuest": false,
+      "locale": "en_GB",
+      "accountStatus": "active",
+      "_expandable": {
+        "operations": "",
+        "personalSpace": ""
+      },
+      "_links": {
+        "self": "https://innovationgroup.atlassian.net/wiki/rest/api/user?accountId=557058:217f7cdb-0fdc-4065-801c-eab3cd09141d"
+      }
+    },
+    "when": "2025-01-07T13:31:07.814Z",
+    "friendlyWhen": "Jan 07, 2025",
+    "message": "",
+    "number": 7,
+    "minorEdit": false,
+    "ncsStepVersion": "1",
+    "ncsStepVersionSource": "ncs-ack",
+    "confRev": "confluence$content$1757544459.94",
+    "contentTypeModified": false,
+    "_expandable": {
+      "collaborators": "",
+      "content": "/rest/api/content/1757544459"
+    },
+    "_links": {
+      "self": "https://innovationgroup.atlassian.net/wiki/rest/api/content/1757544459/version/7"
+    }
+  },
+  "macroRenderedOutput": {},
+  "body": {
+    "storage": {
+      "value": "<ac:layout><ac:layout-section ac:type=\"fixed-width\" ac:breakout-mode=\"default\"><ac:layout-cell><p><strong>Introduction:</strong></p><p>The purpose of this document is to outline the testing strategy for combining automation and manual testing to ensure the quality of our software products. This strategy will guide our testing efforts, covering both functional and non-functional aspects of testing.</p><p><strong>Objectives:</strong></p><ul><li><p>Ensure comprehensive test coverage to identify defects and improve product quality.</p></li><li><p>Optimize testing efforts by leveraging automation  for repetitive and time-consuming tasks.</p></li><li><p>Use manual testing for scenarios that require human intuition, exploratory testing, and validation of user experience.</p></li><li><p>Enhance collaboration between development and testing teams to facilitate early defect detection and resolution.</p></li></ul><p><strong>Scope:</strong></p><p>This testing strategy encompasses all phases of the software development lifecycle, including requirements analysis, design, development, testing, deployment, and maintenance.<br /></p><p><strong>Approach</strong></p><hr /></ac:layout-cell></ac:layout-section><ac:layout-section ac:type=\"two_equal\" ac:breakout-mode=\"default\"><ac:layout-cell><p><strong>Automation Testing</strong><br /></p><ul><li><p>Identify test cases suitable for automation based on criteria such as repeatability &amp; stability,</p></li><li><p>Select appropriate automation frameworks based on story requirement (Front end Automation / Back end Automation)</p></li><li><p>Develop robust automation scripts that are maintainable, reusable, and scalable.</p></li><li><p>Integrate automation tests into the continuous integration/continuous deployment (CI/CD) pipeline for regression failures.</p></li><li><p>Execute automated tests regularly to detect regressions and ensure the stability of the application.</p></li><li><p>Monitor automation test results and analyze failures to prioritize bug/defect fixes and improvements.<br /></p></li></ul><p /></ac:layout-cell><ac:layout-cell><p><strong>Manual Testing</strong><br /></p><ul><li><p>Perform exploratory testing to uncover defects that may not be covered by automated tests.</p></li><li><p>Validate user interface elements, usability, and accessibility to ensure a seamless user experience.</p></li><li><p>Conduct ad-hoc testing to simulate real-world scenarios and identify edge cases.</p></li><li><p>Execute test scenarios that require human judgment, creativity, and domain knowledge.</p></li><li><p>Collaborate closely with stakeholders to gather feedback and incorporate changes iteratively.</p></li><li><p>Document test results, defects, and testing artifacts for traceability and future reference.<br />Test scenario which will be captured as a <strong>new x-ray test case</strong> under each story.</p></li><li><p>Each test case shall contain test steps and expected result.</p></li><li><p>Even if a test case is supposed to be automated it can be be present as a x-ray test case or details of this test cases should be available under BT-AT task<br /><br /></p></li></ul></ac:layout-cell></ac:layout-section><ac:layout-section ac:type=\"fixed-width\" ac:breakout-mode=\"default\"><ac:layout-cell><p><strong>QA Roles and Responsibility </strong></p><p>The role of a QA in the program has been elaborated under  <ac:link ac:card-appearance=\"inline\"><ri:page ri:content-title=\"QA Roles &amp; Responsibilities\" ri:version-at-save=\"2\" /><ac:link-body>QA Roles &amp; Responsibilities</ac:link-body></ac:link> <strong> </strong></p><hr /><p><strong>During Sprints</strong></p><ul><li><p><strong>Back End Automation</strong>:&nbsp;Our primary focus should be on automating stories via the back-end route wherever feasible. The back end is the backbone of our applications, and robust testing at this level can help us identify issues early in the development cycle, leading to more stable builds.</p></li><li><p><strong>Front End Automation:</strong>&nbsp;While front end automation is essential for validating user interfaces and interactions, we must be <strong>mindful</strong> of its complexity and cost. Therefore, we should be selective in our approach, automating critical user journeys that provide the most value and require frequent regression.</p></li><li><p><strong>End-to-End Workflows</strong>:&nbsp;For end-to-end workflows, our strategy should be to leverage front end automation sparingly, invoking back-end calls when front end verification is not necessary. This approach will allow us to streamline our testing efforts and focus on areas that truly benefit from front end validation.</p></li></ul><hr /><p><strong>Test Types:</strong></p><ul><li><p><strong>Functional Testing:</strong> Includes unit testing, integration testing, system testing, and acceptance testing to verify that the software meets functional requirements.</p></li><li><p><strong>Regression Testing:</strong> Ensures that new changes do not adversely affect existing functionality by retesting previously validated features.</p></li><li><p><strong>User Acceptance Testing (UAT):</strong> Involves validating the software from an end-user perspective to ensure alignment with business needs and user expectations.</p></li></ul><hr /><p><strong>Regression testing </strong></p><ul><li><p>Performed every 2nd Tuesday of the sprint and its mandatory for all QA (Contractors + Permanent) to be involved in testing on regression day</p></li><li><p>QA must <strong>NOT </strong>work on any sprint ticket on this day unless agreed with<strong> </strong><ac:link><ri:user ri:account-id=\"557058:217f7cdb-0fdc-4065-801c-eab3cd09141d\" ri:local-id=\"53a47652-a31c-474e-96c8-c1a7f44924c8\" /></ac:link>  + Dev managers  </p></li><li><p>Detailed strategy is available under <ac:link ac:card-appearance=\"inline\"><ri:page ri:content-title=\"Regression test process - What to expect\" ri:version-at-save=\"13\" /><ac:link-body>Regression test process - What to expect</ac:link-body></ac:link> </p></li></ul><hr /><p><strong>Tools and Technologies:</strong></p><ul><li><p>Automation Testing Tools:</p><ul><li><p>Front-end Automation - Selenium WebDriver</p></li><li><p>Back End Automation - C#, RestSharp, Specflow, Gerkin </p></li></ul></li><li><p>Test Management Tools: Examples include Jira, Xray, Azure DevOps</p></li><li><p>Continuous Integration Tools: Azure DevOps</p></li><li><p>Collaboration Tools: Jira, Teams, and Confluence.</p></li></ul><hr /><p><strong>Training and Skill Development:</strong></p><ul><li><p>Providing training and upskilling opportunities for testing team members to enhance their proficiency in automation tools and techniques.</p><ul><li><p><ac:link ac:card-appearance=\"inline\"><ri:page ri:content-title=\"QA Training Sessions\" ri:version-at-save=\"10\" /><ac:link-body>QA Training Sessions</ac:link-body></ac:link> </p></li></ul></li><li><p>Fostering a culture of continuous learning and knowledge sharing within the testing community.</p></li><li><p>Encourage collaboration between developers and testers to promote cross-functional skills and perspectives</p></li></ul><hr /><p><strong>Metrics and Reporting:</strong></p><ul><li><p>Tracking key metrics such as Test execution time, back end automation, front end automation</p><ul><li><p><a href=\"https://dev.azure.com/innovation-group/GG/_dashboards/dashboard/35e913c4-0a05-4a05-8e89-e9130ea60448\">Dashboard for nightly Runs</a></p></li></ul></li><li><p>Generating comprehensive test reports to communicate testing progress, test results, and quality metrics to stakeholders.</p><ul><li><p><ac:link ac:card-appearance=\"inline\"><ri:page ri:content-title=\"QA Update - UAT + Regression\" ri:version-at-save=\"405\" /><ac:link-body>QA Update - UAT + Regression</ac:link-body></ac:link> </p></li><li><p><ac:link ac:card-appearance=\"inline\"><ri:page ri:content-title=\"QA Update - Production Issues\" ri:version-at-save=\"27\" /><ac:link-body>QA Update - Production Issues</ac:link-body></ac:link> </p></li></ul></li></ul><p><strong>Out of scope </strong></p><ul><li><p>Non-Functional Testing</p></li><li><p>Security testing </p></li><li><p>Pen testing <br /></p></li></ul><p><strong>Important Links </strong></p><ul><li><p>Nightly Execution results <a href=\"https://dev.azure.com/innovation-group/GG/_dashboards/dashboard/35e913c4-0a05-4a05-8e89-e9130ea60448\">https://dev.azure.com/innovation-group/GG/_dashboards/dashboard/35e913c4-0a05-4a05-8e89-e9130ea60448</a></p></li><li><p>Back End Automation Repository - <a href=\"https://dev.azure.com/innovation-group/GG/_git/IG.1FAT\">Repository for Backend solution</a> </p></li><li><p>Automation Pipeline Schedule - <ac:link ac:card-appearance=\"inline\"><ri:page ri:content-title=\"Automation Pipeline Schedule\" ri:version-at-save=\"32\" /><ac:link-body>Automation Pipeline Schedule</ac:link-body></ac:link> </p></li><li><p>Automation tracking <ac:link ac:card-appearance=\"inline\"><ri:page ri:content-title=\"QA - Reporting\" ri:version-at-save=\"962\" /><ac:link-body>QA - Reporting</ac:link-body></ac:link> <br /></p></li></ul><hr /><p><strong>Conclusion:</strong></p><p>By adopting a balanced approach to automation and manual testing, we aim to achieve high-quality software products that meet customer expectations and business objectives. This testing strategy will evolve over time based on project requirements, technology advancements, and lessons learned from past experiences.</p><p>For any queries please contact <ac:link><ri:user ri:account-id=\"557058:217f7cdb-0fdc-4065-801c-eab3cd09141d\" /></ac:link>  </p></ac:layout-cell></ac:layout-section></ac:layout>",
+      "representation": "storage",
+      "embeddedContent": [],
+      "_expandable": {
+        "content": "/rest/api/content/1757544459"
+      }
+    },
+    "_expandable": {
+      "editor": "",
+      "atlas_doc_format": "",
+      "view": "",
+      "export_view": "",
+      "styled_view": "",
+      "dynamic": "",
+      "editor2": "",
+      "anonymous_export_view": ""
+    }
+  },
+  "metadata": {
+    "labels": {
+      "results": [],
+      "start": 0,
+      "limit": 200,
+      "size": 0,
+      "_links": {
+        "next": "/rest/api/content/1757544459/label?next=true&limit=200&start=200",
+        "self": "https://innovationgroup.atlassian.net/wiki/rest/api/content/1757544459/label"
+      }
+    },
+    "_expandable": {
+      "lastEditedTime": "",
+      "currentuser": "",
+      "comments": "",
+      "createdBySpaceBlueprint": "",
+      "isActiveLiveEditSession": "",
+      "sourceTemplateEntityId": "",
+      "simple": "",
+      "properties": "",
+      "frontend": "",
+      "likes": ""
+    }
+  },
+  "extensions": {
+    "position": 68
+  },
+  "_expandable": {
+    "childTypes": "",
+    "container": "/rest/api/space/GGW",
+    "schedulePublishInfo": "",
+    "operations": "",
+    "schedulePublishDate": "",
+    "children": "/rest/api/content/1757544459/child",
+    "restrictions": "/rest/api/content/1757544459/restriction/byOperation",
+    "history": "/rest/api/content/1757544459/history",
+    "ancestors": "",
+    "draftVersion": "",
+    "descendants": "/rest/api/content/1757544459/descendant",
+    "space": "/rest/api/space/GGW"
+  },
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=1757544459",
+    "webui": "/spaces/GGW/pages/1757544459/Gateway+Testing+Strategy",
+    "edituiv2": "/spaces/GGW/pages/edit-v2/1757544459",
+    "context": "/wiki",
+    "self": "https://innovationgroup.atlassian.net/wiki/rest/api/content/1757544459",
+    "tinyui": "/x/CwDCa",
+    "collection": "/rest/api/content",
+    "base": "https://innovationgroup.atlassian.net/wiki"
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "id": "7716703",
+  "type": "page",
+  "ari": "ari:cloud:confluence:27707bf3-6ed7-46de-a8c6-2b5516bb49cc:page/7716703",
+  "base64EncodedAri": "YXJpOmNsb3VkOmNvbmZsdWVuY2U6Mjc3MDdiZjMtNmVkNy00NmRlLWE4YzYtMmI1NTE2YmI0OWNjOmNvbnRlbnQvNzcxNjcwMw==",
+  "status": "current",
+  "title": "PL - Ergo Hestia- Integration of Inspect requests for repairs",
+  "version": {
+    "by": {
+      "type": "known",
+      "accountId": "5e35e3e6bd1e480ca328da83",
+      "accountType": "atlassian",
+      "email": "",
+      "publicName": "Former user (Deleted)",
+      "profilePicture": {
+        "path": "/wiki/aa-avatar/5e35e3e6bd1e480ca328da83",
+        "width": 48,
+        "height": 48,
+        "isDefault": false
+      },
+      "displayName": "Former user (Deleted)",
+      "isExternalCollaborator": false,
+      "isGuest": false,
+      "accountStatus": "closed",
+      "_expandable": {
+        "operations": "",
+        "personalSpace": ""
+      },
+      "_links": {
+        "self": "https://innovationgroup.atlassian.net/wiki/rest/api/user?accountId=5e35e3e6bd1e480ca328da83"
+      }
+    },
+    "when": "2016-07-07T16:53:04.302Z",
+    "friendlyWhen": "Jul 07, 2016",
+    "message": "",
+    "number": 1,
+    "minorEdit": false,
+    "confRev": "confluence$content$7716703.13",
+    "contentTypeModified": false,
+    "_expandable": {
+      "collaborators": "",
+      "content": "/rest/api/content/7716703"
+    },
+    "_links": {
+      "self": "https://innovationgroup.atlassian.net/wiki/rest/api/content/7716703/version/1"
+    }
+  },
+  "macroRenderedOutput": {},
+  "body": {
+    "storage": {
+      "value": "<ac:layout><ac:layout-section ac:type=\"two_equal\"><ac:layout-cell><ac:structured-macro ac:macro-id=\"31632b24-b62c-44d5-b0f6-1f614b0e9b17\" ac:name=\"details\" ac:schema-version=\"1\"><ac:rich-text-body><table><tbody><tr><th colspan=\"1\"><a href=\"#?tooltip=Insert%20the%20name%20of%20the%20user%20story%20here\">BCR Title</a></th><td colspan=\"1\"><span style=\"color: rgb(112,112,112);\"><span style=\"background-color: rgb(245,245,245);\"><em>Ergo Hestia- Integration of Inspect requests for repairs</em></span></span></td></tr><tr><th>Business Sign Off</th><td><ac:structured-macro ac:macro-id=\"5fdb7ccc-90cb-4690-b5f0-9ab3af1d4259\" ac:name=\"status\" ac:schema-version=\"1\"><ac:parameter ac:name=\"colour\">Yellow</ac:parameter><ac:parameter ac:name=\"title\">pending</ac:parameter><ac:parameter ac:name=\"\" /></ac:structured-macro></td></tr><tr><th colspan=\"1\">Client</th><td colspan=\"1\"><span style=\"color: rgb(112,112,112);\"><span style=\"background-color: rgb(245,245,245);\"><em>IGP</em></span></span></td></tr><tr><th colspan=\"1\">Business Priority</th><td colspan=\"1\">Low</td></tr><tr><th colspan=\"1\">Date Submitted</th><td colspan=\"1\"><time datetime=\"2016-07-07\" />&nbsp;</td></tr><tr><th colspan=\"1\">Owner</th><td colspan=\"1\"><ac:link><ri:user ri:userkey=\"8a7f80896fcefb71017002823c8313cc\" /></ac:link></td></tr><tr><th colspan=\"1\">Submitted By</th><td colspan=\"1\"><ac:link><ri:user ri:userkey=\"8a7f80896fcefb71017002823c8313cc\" /></ac:link></td></tr><tr><th colspan=\"1\">Type Of Change</th><td colspan=\"1\"><span style=\"color: rgb(112,112,112);\"><span style=\"background-color: rgb(245,245,245);\"><em>Functional</em></span></span></td></tr><tr><th colspan=\"1\">Approval Date</th><td colspan=\"1\"><ac:placeholder>Type &quot;//&quot; to bring up the date picker </ac:placeholder></td></tr></tbody></table></ac:rich-text-body></ac:structured-macro></ac:layout-cell><ac:layout-cell><p>&nbsp;</p></ac:layout-cell></ac:layout-section><ac:layout-section ac:type=\"single\"><ac:layout-cell><p><strong>Description: There is a request for a further integration of inspection request messges between IGP and EH/MTU. Currently, we generate the messages when our orders are cancelled. <br /> <br />However, they want to integrate inspection requests for orders which are proceeding as a repair. <br /> <br />I have put together some overall requirements in the attached document. As yet, we have not got into details of mapping a content of messages. However, I am raising this to the backlog so it can go in for initial review <br /> <br />------------------------------------ <br /> <br />I think there would also be some UI changes for inspection requests after allocation. Currently on the UI when inspection requested date is populated, the inspection scheduled date is mandatory. When the inspection requests are integrated, we are not going to know/get back the date the inspection is arranged for at the point we send the request- so this would require some UI changes I think. <br /></strong></p><p>&nbsp;</p></ac:layout-cell></ac:layout-section><ac:layout-section ac:type=\"single\"><ac:layout-cell><p align=\"LEFT\">The following section will outline the business case and assist with sprint planning:</p><p align=\"LEFT\"><strong>Business Case:</strong></p><p><strong>&nbsp;</strong></p><table><tbody><tr><th>Reason for change</th><td>&nbsp;</td></tr><tr><th>Benefits</th><td>&nbsp;</td></tr><tr><th>Consequences</th><td>&nbsp;</td></tr><tr><th>Business effect</th><td>&nbsp;</td></tr></tbody></table></ac:layout-cell></ac:layout-section><ac:layout-section ac:type=\"single\"><ac:layout-cell><p align=\"LEFT\">This document will act as a covering document to the user stories; which will have been included in the sign off package to the business.</p><p align=\"LEFT\"><strong>Disclaimer:</strong> Please ensure you check the below table and ensure the business stories below correspond with the user stories attached; if any are missing please alert your project contact immediately.</p></ac:layout-cell></ac:layout-section><ac:layout-section ac:type=\"single\"><ac:layout-cell><h1>User Stories</h1><p align=\"LEFT\">The following user stories have been created to represent the business requirement(s):</p><table><tbody><tr><th>Title</th><th colspan=\"1\">User</th><th>Business Sign Off</th></tr><tr><td><ac:placeholder>Insert the name of the user story here </ac:placeholder></td><td colspan=\"1\"><ac:placeholder ac:type=\"mention\">User</ac:placeholder></td><td><ac:structured-macro ac:macro-id=\"543ef425-5dff-485b-8401-e5331e374c33\" ac:name=\"status\" ac:schema-version=\"1\"><ac:parameter ac:name=\"colour\">Yellow</ac:parameter><ac:parameter ac:name=\"title\">pending</ac:parameter><ac:parameter ac:name=\"\" /></ac:structured-macro></td></tr><tr><td><ac:placeholder>Insert the name of the user story here </ac:placeholder></td><td><ac:placeholder ac:type=\"mention\">User</ac:placeholder></td><td><ac:structured-macro ac:macro-id=\"33fe4ff1-fda7-469f-bee3-1832c7ddf37d\" ac:name=\"status\" ac:schema-version=\"1\"><ac:parameter ac:name=\"colour\">Yellow</ac:parameter><ac:parameter ac:name=\"title\">pending</ac:parameter><ac:parameter ac:name=\"\" /></ac:structured-macro></td></tr></tbody></table><h2><strong>Please note:</strong>&nbsp;The business will have the opportunity to review the build and provide a final sign off, prior to the developed piece being placed in live production.&nbsp;</h2></ac:layout-cell></ac:layout-section><ac:layout-section ac:type=\"single\"><ac:layout-cell><p><ac:structured-macro ac:macro-id=\"1b134bb8-1754-4788-b02c-ccbea7d5b027\" ac:name=\"attachments\" ac:schema-version=\"1\" /></p><p>&nbsp;</p></ac:layout-cell></ac:layout-section><ac:layout-section ac:type=\"single\"><ac:layout-cell><p align=\"LEFT\">The following section will outline any risks and impacts:</p><p>&nbsp;</p><table><tbody><tr><th>Impact on Analytics</th><td>Unknown</td></tr></tbody></table><table><tbody><tr><th>Risks with imposed change</th><th>Probability</th><th>Impact</th><th>Risk score</th></tr><tr><td><ac:placeholder>Insert the risk the proposed change imposes</ac:placeholder></td><td><ac:placeholder>insert probability</ac:placeholder></td><td><ac:placeholder>insert impact</ac:placeholder></td><td><ac:placeholder>Insert risk score</ac:placeholder></td></tr></tbody></table></ac:layout-cell></ac:layout-section></ac:layout>",
+      "representation": "storage",
+      "embeddedContent": [],
+      "_expandable": {
+        "content": "/rest/api/content/7716703"
+      }
+    },
+    "_expandable": {
+      "editor": "",
+      "atlas_doc_format": "",
+      "view": "",
+      "export_view": "",
+      "styled_view": "",
+      "dynamic": "",
+      "editor2": "",
+      "anonymous_export_view": ""
+    }
+  },
+  "metadata": {
+    "labels": {
+      "results": [
+        {
+          "prefix": "global",
+          "name": "new_bcr",
+          "id": "7625263",
+          "label": "new_bcr"
+        }
+      ],
+      "start": 0,
+      "limit": 200,
+      "size": 1,
+      "_links": {
+        "next": "/rest/api/content/7716703/label?next=true&limit=200&start=200",
+        "self": "https://innovationgroup.atlassian.net/wiki/rest/api/content/7716703/label"
+      }
+    },
+    "_expandable": {
+      "lastEditedTime": "",
+      "currentuser": "",
+      "comments": "",
+      "createdBySpaceBlueprint": "",
+      "isActiveLiveEditSession": "",
+      "sourceTemplateEntityId": "",
+      "simple": "",
+      "properties": "",
+      "frontend": "",
+      "likes": ""
+    }
+  },
+  "extensions": {
+    "position": 9
+  },
+  "_expandable": {
+    "childTypes": "",
+    "container": "/rest/api/space/PL",
+    "schedulePublishInfo": "",
+    "operations": "",
+    "schedulePublishDate": "",
+    "children": "/rest/api/content/7716703/child",
+    "restrictions": "/rest/api/content/7716703/restriction/byOperation",
+    "history": "/rest/api/content/7716703/history",
+    "ancestors": "",
+    "draftVersion": "",
+    "descendants": "/rest/api/content/7716703/descendant",
+    "space": "/rest/api/space/PL"
+  },
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=7716703",
+    "webui": "/spaces/PL/pages/7716703/PL+-+Ergo+Hestia-+Integration+of+Inspect+requests+for+repairs",
+    "edituiv2": "/spaces/PL/pages/edit-v2/7716703",
+    "context": "/wiki",
+    "self": "https://innovationgroup.atlassian.net/wiki/rest/api/content/7716703",
+    "tinyui": "/x/X791",
+    "collection": "/rest/api/content",
+    "base": "https://innovationgroup.atlassian.net/wiki"
+  }
+}
