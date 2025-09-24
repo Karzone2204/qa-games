@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { api } from "../../services/api.js";
 
 export default function TRexRunner() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [running, setRunning] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
