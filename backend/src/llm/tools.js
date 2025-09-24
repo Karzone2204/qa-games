@@ -264,5 +264,4 @@ async function executeDataGeneration(callId, environment, feed, requestType, max
     const link = `https://ig-weu-tst-gateway-ui.azurewebsites.net/order/${found.id}/manage/dashboard`;
     console.log(`[DataGenTool-${callId}] ORDER FOUND: id=${found.id}, ref=${found.orderReference}, keyword=${found.keyword}`);
     return { ok:true, submitted:true, submitStatus: submitRes.status, polled:true, found:true, id:found.id, orderReference: found.orderReference, link, keywordUsed: found.keyword };
-  }
-};
+}
