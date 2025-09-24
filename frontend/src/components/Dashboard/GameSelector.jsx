@@ -14,6 +14,7 @@ const games = [
   { id: "sudoku",     icon: "🔢", title: "Sudoku Master",  subtitle: "Number puzzle!" },
   { id: "wordScram",  icon: "🧩", title: "Word Scramble", subtitle: "Unscramble words!" },
   { id: "mathSprint", icon: "➗", title: "Math Sprint",    subtitle: "Solve fast!" },
+  { id: "trexRunner", icon: "🦕", title: "T-Rex Runner",   subtitle: "Jump over cacti!" },
 ];
 
 export default function GameSelector({ selected, onSelect, openAuth }) {

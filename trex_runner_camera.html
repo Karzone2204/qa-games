@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>T‑Rex — Innovation Group</title>
+  <style>
+    :root{
+      --sky:#eff6ff; --ground:#fef3c7; --line:#eab308; --ui:#ffffffee; --ui-stroke:#e5e7eb; --text:#0f172a; --muted:#6b7280;
+      --brandA:#0ea5e9; --brandB:#0369a1; --accent:#22d3ee;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif; color:var(--text); background:linear-gradient(180deg, var(--sky), #dbeafe)}
+
+    header{ max-width:1100px; margin:12px auto 6px; padding:0 10px; display:flex; align-items:center; justify-content:space-between }
+    .title{ font-size:18px; font-weight:900; letter-spacing:.2px }
+    .badge{ background:linear-gradient(180deg, #e0f2fe, #bae6fd); color:#083344; border:2px solid #bfdbfe; border-radius:999px; padding:8px 12px; font-weight:900; box-shadow:0 8px 24px #00000012 }
+
+    .wrap{ max-width:1100px; margin:0 auto; padding:0 10px; }
+
+    main#stage-wrap{
+      position:relative; width:min(1024px, 96vw); aspect-ratio: 16/9; border-radius:16px; overflow:hidden; border:3px solid var(--ui-stroke);
+      background:linear-gradient(180deg, var(--sky), #e0f2fe 60%, var(--ground) 60%, var(--ground)); box-shadow:0 20px 60px #00000018; user-select:none; -webkit-user-select:none; touch-action:none;
+    }
+    canvas#game{ position:absolute; inset:0; display:block }
+
+    /* HUD */
+    .hud{ position:absolute; top:8px; left:10px; display:flex; gap:8px; z-index:5 }
+    .pill{ background:var(--ui); border:2px solid var(--ui-stroke); border-radius:12px; padding:6px 10px; display:flex; gap:6px; align-items:center; box-shadow:0 8px 24px #00000010 }
+    .pill .label{ color:var(--muted); font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.4px }
+    .pill .value{ font-weight:900; font-size:16px; color:#0f172a; min-width:42px; text-align:right; font-variant-numeric:tabular-nums }
+
+    /* Banners inside play area */
+    .banner-top-right{ position:absolute; top:10px; right:10px; background:linear-gradient(180deg,var(--brandA),var(--brandB)); color:#fff; border-radius:999px; padding:8px 12px; font-weight:900; letter-spacing:.4px; box-shadow:0 10px 28px #0369a155; z-index:6 }
+    .banner-bottom-right{ position:absolute; bottom:10px; right:10px; background:#111827; color:#fff; border-radius:999px; padding:6px 12px; font-weight:800; letter-spacing:.2px; box-shadow:0 10px 24px #0006; z-index:6; opacity:.9 }
+
+    /* Overlays */
+    .overlay{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; background:linear-gradient(180deg, #ffffffcc, #ffffffee); z-index:10; padding:20px; text-align:center }
+    .overlay h2{ margin:0; font-size:28px; font-weight:900 }
+    .overlay p{ margin:0; color:#334155; font-weight:600 }
+    .field{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:center; margin-top:6px }
+    input[type="text"]{ width:min(300px, 70vw); padding:10px 12px; font-size:16px; border:2px solid var(--ui-stroke); border-radius:12px; outline:none }
+    label{ user-select:none }
+    .btn{ appearance:none; border:0; background:linear-gradient(180deg, #67e8f9, var(--accent)); color:#05313a; font-weight:900; font-size:16px; padding:10px 14px; border-radius:12px; box-shadow:0 12px 28px #22d3ee66, inset 0 -2px 0 #14b8a6; cursor:pointer }
+    .btn:active{ transform:translateY(1px) }
+
+    .cam-wrap{ display:none; flex-direction:column; align-items:center; gap:8px; margin-top:8px }
+    video#cam{ width:min(360px, 70vw); border-radius:12px; border:2px solid var(--ui-stroke); background:#000; }
+    .thumb{ width:72px; height:72px; border-radius:50%; overflow:hidden; border:3px solid var(--brandA); box-shadow:0 6px 18px #0003 }
+    .note{ font-size:12px; color:#64748b }
+
+    @media (max-width: 760px){ .overlay h2{font-size:22px} }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">T‑Rex</div>
+    <div class="badge">Innovation Group</div>
+  </header>
+
+  <div class="wrap">
+    <main id="stage-wrap">
+      <canvas id="game"></canvas>
+
+      <!-- HUD -->
+      <div class="hud">
+        <div class="pill"><span class="label">Player</span><span id="hudPlayer" class="value">-</span></div>
+        <div class="pill"><span class="label">Score</span><span id="hudScore" class="value">0</span></div>
+        <div class="pill"><span class="label">Best</span><span id="hudBest" class="value">0</span></div>
+      </div>
+      <div class="banner-top-right">Innovation Group</div>
+      <div class="banner-bottom-right">Developed by AI (QA Team)</div>
+
+      <!-- Welcome / name + optional camera -->
+      <section id="welcome" class="overlay">
+        <h2>Enter your name to start</h2>
+        <p>Press <strong>Space</strong> or <strong>Arrow Up</strong> to jump over cactus!</p>
+        <div class="field">
+          <input id="playerName" type="text" maxlength="24" placeholder="Your name" />
+          <button id="playBtn" class="btn" disabled>Start</button>
+        </div>
+        <div class="field">
+          <input id="useCam" type="checkbox"/>
+          <label for="useCam">Use my camera to place my face on the T‑Rex</label>
+        </div>
+        <div id="camWrap" class="cam-wrap">
+          <video id="cam" autoplay playsinline muted></video>
+          <div class="field">
+            <button id="openCamBtn" class="btn">Open Camera</button>
+            <button id="snapBtn" class="btn" disabled>Capture Photo</button>
+            <button id="closeCamBtn" class="btn" style="display:none">Close Camera</button>
+          </div>
+          <div id="thumb" class="thumb" title="Your photo preview"></div>
+          <div class="note">Camera access works on HTTPS or localhost.</div>
+        </div>
+      </section>
+
+      <!-- Game Over -->
+      <section id="gameover" class="overlay" style="display:none">
+        <h2>Game Over</h2>
+        <p id="final">Your score: 0</p>
+        <div class="field"><button id="againBtn" class="btn">Play Again</button></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // ======= Elements =======
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    const welcome = document.getElementById('welcome');
+    const overPanel = document.getElementById('gameover');
+    const nameInput = document.getElementById('playerName');
+    const playBtn = document.getElementById('playBtn');
+    const againBtn = document.getElementById('againBtn');
+    const finalLine = document.getElementById('final');
+    const hudPlayer = document.getElementById('hudPlayer');
+    const hudScore  = document.getElementById('hudScore');
+    const hudBest   = document.getElementById('hudBest');
+
+    const useCam = document.getElementById('useCam');
+    const camWrap = document.getElementById('camWrap');
+    const videoEl = document.getElementById('cam');
+    const openCamBtn = document.getElementById('openCamBtn');
+    const snapBtn = document.getElementById('snapBtn');
+    const closeCamBtn = document.getElementById('closeCamBtn');
+    const thumb = document.getElementById('thumb');
+
+    let stream = null;           // MediaStream
+    let playerPhotoImg = null;   // HTMLImageElement once captured
+
+    // ======= Stage =======
+    let DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    let W=0, H=0;
+
+    const keys = { jump:false };
+    const world = { speed: 420, clouds:[], groundX:0 };
+
+    // Dino physics
+    const dino = { x:0, y:0, w:64, h:60, vy:0, onGround:true, phase:0 };
+    const GRAV = 2600;      // px/s^2
+    const JUMP_V = -880;    // px/s
+
+    // Obstacles
+    const obs = []; // {x,y,w,h,type}
+    let spawnTimer=0, spawnEvery=1.1; // seconds
+
+    const game = { running:false, name:'-', t:0, best: Number(localStorage.getItem('trex_best')||0) };
+
+    function resize(){
+      const rect = document.getElementById('stage-wrap').getBoundingClientRect();
+      W = Math.floor(rect.width); H = Math.floor(rect.height);
+      canvas.width = Math.floor(W*DPR); canvas.height = Math.floor(H*DPR);
+      canvas.style.width=W+'px'; canvas.style.height=H+'px';
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+
+      // place dino near ground left side
+      dino.w = Math.max(48, Math.min(72, Math.round(W*0.065)));
+      dino.h = Math.round(dino.w*0.94);
+      dino.x = W*0.12;
+      dino.y = groundY() - dino.h;
+    }
+    window.addEventListener('resize', resize);
+
+    function groundY(){ return H*0.78; }
+
+    // ======= Input =======
+    function onKey(e, down){
+      if(['Space','ArrowUp',' '].includes(e.key)) e.preventDefault();
+      if((e.key===' ' || e.key==='Space' || e.key==='ArrowUp')){
+        keys.jump = down;
+        if(down && !game.running && welcome.style.display!=='none' && nameInput.value.trim()) maybeStartGame();
+      }
+    }
+    window.addEventListener('keydown', e=>onKey(e,true));
+    window.addEventListener('keyup',   e=>onKey(e,false));
+
+    nameInput.addEventListener('input', ()=>{ playBtn.disabled = nameInput.value.trim()===''; });
+    useCam.addEventListener('change', ()=>{ camWrap.style.display = useCam.checked ? 'flex' : 'none'; });
+
+    playBtn.addEventListener('click', ()=>{ if(!playBtn.disabled) maybeStartGame(); });
+    againBtn.addEventListener('click', ()=>{ welcome.style.display='flex'; overPanel.style.display='none'; });
+
+    async function openCamera(){
+      try{
+        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode:'user', width: {ideal:640}, height:{ideal:480} }, audio:false });
+        videoEl.srcObject = stream; await videoEl.play();
+        snapBtn.disabled = false; openCamBtn.style.display='none'; closeCamBtn.style.display='inline-block';
+      }catch(err){ alert('Could not access camera. You can still play without a photo.'); console.error(err); }
+    }
+
+    function closeCamera(){
+      if(stream){ for(const t of stream.getTracks()) t.stop(); stream=null; }
+      videoEl.srcObject = null; snapBtn.disabled = true; openCamBtn.style.display='inline-block'; closeCamBtn.style.display='none';
+    }
+
+    openCamBtn.addEventListener('click', openCamera);
+    closeCamBtn.addEventListener('click', closeCamera);
+
+    function capturePhoto(){
+      if(!videoEl.srcObject) return;
+      const off = document.createElement('canvas');
+      const size = 256; off.width=size; off.height=size;
+      const c2 = off.getContext('2d');
+      // draw the video frame centered & cover to square
+      const vw = videoEl.videoWidth, vh = videoEl.videoHeight; if(!vw||!vh) return;
+      const scale = Math.max(size/vw, size/vh);
+      const dw = vw*scale, dh = vh*scale;
+      const dx = (size - dw)/2, dy = (size - dh)/2;
+      c2.drawImage(videoEl, dx, dy, dw, dh);
+      const url = off.toDataURL('image/png');
+      playerPhotoImg = new Image(); playerPhotoImg.src = url;
+      // show thumbnail
+      thumb.innerHTML = ''; const img = new Image(); img.src=url; img.style.width='100%'; img.style.height='100%'; img.style.objectFit='cover'; thumb.appendChild(img);
+      // close camera to save resources
+      closeCamera();
+    }
+    snapBtn.addEventListener('click', capturePhoto);
+
+    function maybeStartGame(){
+      // If camera is desired but no photo captured yet and camera UI visible, encourage capture
+      if(useCam.checked && !playerPhotoImg){
+        camWrap.style.display='flex';
+        if(!stream) openCamera();
+        // Do not start yet; wait for capture
+        return;
+      }
+      startGame();
+    }
+
+    // ======= Flow =======
+    function startGame(){
+      game.name = nameInput.value.trim() || 'Player';
+      hudPlayer.textContent = game.name;
+      hudBest.textContent = game.best.toFixed(1);
+      game.running=true; game.t=0; world.clouds.length=0; world.groundX=0; obs.length=0; spawnTimer=0; spawnEvery=1.1;
+      dino.vy=0; dino.onGround=true; dino.y = groundY() - dino.h; dino.phase=0;
+      welcome.style.display='none'; overPanel.style.display='none';
+      // seed clouds
+      for(let i=0;i<4;i++) world.clouds.push({x:Math.random()*W, y:H*0.2+Math.random()*H*0.25, s: 30+Math.random()*40});
+    }
+
+    function endGame(){
+      game.running=false;
+      finalLine.textContent = `Your score: ${hudScore.textContent}`;
+      if(game.t > game.best){ game.best = game.t; localStorage.setItem('trex_best', game.best.toFixed(1)); }
+      hudBest.textContent = Math.max(game.best, game.t).toFixed(1);
+      setTimeout(()=>{ overPanel.style.display='flex'; }, 250);
+    }
+
+    // ======= Spawning =======
+    function spawnCactus(){
+      const base = 36 + Math.random()*28;
+      const cols = 1 + (Math.random()<0.3?1:0) + (Math.random()<0.15?1:0); // 1..3
+      const gap = 10;
+      const totalW = cols*base + (cols-1)*gap;
+      const h = base*(1.3 + Math.random()*0.5);
+      const x = W + totalW;
+      const y = groundY();
+      obs.push({ type:'cactus', x, y, w:totalW, h:h, cols, base, gap });
+    }
+
+    // ======= Update / Draw =======
+    const STEP=1/60; let last=performance.now(), acc=0;
+    function loop(now){ const dt=Math.min(0.05,(now-last)/1000); last=now; acc+=dt; while(acc>=STEP){ if(game.running) update(STEP); acc-=STEP; } draw(); requestAnimationFrame(loop); }
+
+    function update(dt){
+      game.t += dt;
+      const speed = 420 + Math.min(420, game.t*28); // ramp up
+      world.speed = speed;
+      spawnTimer += dt; if(spawnTimer >= Math.max(0.48, spawnEvery - game.t*0.003)) { spawnTimer=0; spawnCactus(); }
+
+      // dino jump
+      if(keys.jump && dino.onGround){ dino.vy = JUMP_V; dino.onGround=false; }
+      dino.vy += GRAV*dt; dino.y += dino.vy*dt;
+      const gy = groundY() - dino.h; if(dino.y >= gy){ dino.y=gy; dino.vy=0; dino.onGround=true; }
+
+      // running phase
+      dino.phase += (dino.onGround? 12: 4) * dt;
+
+      // move obstacles & collide
+      for(let i=obs.length-1; i>=0; i--){
+        const o = obs[i]; o.x -= world.speed*dt; if(o.x + o.w < -20){ obs.splice(i,1); continue; }
+        if(collideDino(o)){ endGame(); break; }
+      }
+
+      // move ground and clouds
+      world.groundX = (world.groundX - world.speed*dt) % 120;
+      for(const c of world.clouds){ c.x -= (world.speed*0.25)*dt; if(c.x < -80) { c.x = W + Math.random()*200; c.y = H*0.15 + Math.random()*H*0.3; } }
+
+      // score HUD
+      hudScore.textContent = game.t.toFixed(1);
+    }
+
+    function collideDino(o){
+      if(o.type==='cactus'){
+        const ax = dino.x+8, ay=dino.y+6, aw=dino.w-14, ah=dino.h-10;
+        const bx = o.x+4, by=o.y - o.h, bw=o.w-8, bh=o.h;
+        return !(ax+aw < bx || ax > bx+bw || ay+ah < by || ay > by+bh);
+      }
+      return false;
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      // sky
+      const sky = ctx.createLinearGradient(0,0,0,H); sky.addColorStop(0,'#eaf2ff'); sky.addColorStop(1,'#cdeafe'); ctx.fillStyle = sky; ctx.fillRect(0,0,W,H);
+      // clouds
+      for(const c of world.clouds){ drawCloud(c.x, c.y, c.s); }
+      // ground
+      const gy = groundY(); ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--ground').trim() || '#fef3c7'; ctx.fillRect(0, gy, W, H-gy);
+      // ground ticks & horizon
+      ctx.fillStyle = '#eab308'; for(let x = world.groundX; x < W; x += 120){ ctx.fillRect(x, gy, 40, 4); } ctx.fillRect(0, gy, W, 2);
+      // obstacles
+      for(const o of obs){ if(o.type==='cactus') drawCactusGroup(o); }
+      // dino
+      drawDino(dino.x, dino.y, dino.w, dino.h, dino.phase, !dino.onGround);
+      // player photo on dino back
+      if(playerPhotoImg){ drawPlayerBadge(dino.x, dino.y, dino.w, dino.h); }
+    }
+
+    // ======= Drawing helpers =======
+    function drawCloud(x,y,s){ ctx.fillStyle = '#ffffffcc'; ctx.beginPath(); ctx.arc(x, y, s*0.36, 0, Math.PI*2); ctx.arc(x+s*0.3, y-s*0.18, s*0.28, 0, Math.PI*2); ctx.arc(x+s*0.6, y, s*0.36, 0, Math.PI*2); ctx.fill(); }
+
+    function drawCactusGroup(o){ const base=o.base, gap=o.gap; let x=o.x; for(let i=0;i<o.cols;i++){ drawCactus(x, o.y, base, o.h*(0.9+Math.random()*0.1)); x+= base+gap; } }
+    function drawCactus(x,y,base,h){ ctx.fillStyle = '#0f5132'; ctx.fillRect(x+base*0.4, y-h, base*0.2, h); const armH=h*0.36, armW=base*0.16; ctx.fillRect(x+base*0.15, y-h*0.55, armW, armH); ctx.fillRect(x+base*0.70, y-h*0.45, armW, armH); ctx.beginPath(); ctx.arc(x+base*0.25, y-h*0.55, armW/2, 0, Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(x+base*0.78, y-h*0.45, armW/2, 0, Math.PI*2); ctx.fill(); ctx.beginPath(); ctx.arc(x+base*0.5, y-h, base*0.1, 0, Math.PI*2); ctx.fill(); }
+
+    function drawDino(x,y,w,h,phase,air){ ctx.save(); const bob = air? 0 : Math.sin(phase*2)*2; y += bob; ctx.fillStyle = '#1f2937'; ctx.beginPath(); ctx.moveTo(x+w*0.08, y+h*0.62); ctx.lineTo(x-w*0.12, y+h*0.52); ctx.lineTo(x+w*0.08, y+h*0.72); ctx.closePath(); ctx.fill(); ctx.fillStyle = '#111827'; roundRect(ctx, x+w*0.08, y+h*0.28, w*0.64, h*0.44, 6); ctx.fill(); roundRect(ctx, x+w*0.52, y+h*0.06, w*0.42, h*0.36, 6); ctx.fill(); ctx.fillStyle = '#fff'; ctx.fillRect(x+w*0.86, y+h*0.16, w*0.06, h*0.06); ctx.fillStyle = '#111827'; ctx.fillRect(x+w*0.90, y+h*0.18, w*0.03, h*0.03); ctx.fillStyle = '#0f172a'; ctx.fillRect(x+w*0.60, y+h*0.26, w*0.24, 4); ctx.fillStyle = '#111827'; const t = Math.floor(phase)%2; const lw = w*0.16, lh = h*0.38; if(t===0){ ctx.fillRect(x+w*0.22, y+h*0.58, lw, lh); ctx.fillRect(x+w*0.52, y+h*0.58, lw, lh*0.7);} else { ctx.fillRect(x+w*0.22, y+h*0.58, lw, lh*0.7); ctx.fillRect(x+w*0.52, y+h*0.58, lw, lh);} ctx.restore(); }
+
+    function drawPlayerBadge(dx,dy,dw,dh){
+      // Place a circular photo badge on the T‑Rex back
+      const cx = dx + dw*0.28; // center
+      const cy = dy + dh*0.24;
+      const r  = dw*0.18;
+      ctx.save();
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.clip();
+      ctx.drawImage(playerPhotoImg, cx-r, cy-r, r*2, r*2);
+      ctx.restore();
+      // ring
+      ctx.strokeStyle = '#22d3ee'; ctx.lineWidth = Math.max(3, dw*0.04); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
+    }
+
+    function roundRect(ctx,x,y,w,h,r){ const rr=Math.min(r,w/2,h/2); ctx.beginPath(); ctx.moveTo(x+rr,y); ctx.arcTo(x+w,y,x+w,y+h,rr); ctx.arcTo(x+w,y+h,x,y+h,rr); ctx.arcTo(x,y+h,x,y,rr); ctx.arcTo(x,y,x+w,y,rr); ctx.closePath(); }
+
+    // ======= Init =======
+    resize(); hudBest.textContent = game.best.toFixed(1); requestAnimationFrame(loop);
+  </script>
+</body>
+</html>

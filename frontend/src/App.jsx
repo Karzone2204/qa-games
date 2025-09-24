@@ -19,6 +19,7 @@ import TrainTheBrain from "./components/Games/TrainTheBrain.jsx";
 import RPS from "./components/Games/RPS.jsx";
 import Zip from "./components/Games/Zip.jsx";
 import CutTheFruit from "./components/Games/CutTheFruit.jsx";
+import TRexRunner from "./components/Games/TRexRunner.jsx";
 
 import QAToolsHub from "./components/QATools/QAToolsHub.jsx";
 import LoginGate from "./components/Auth/LoginGate.jsx";
@@ -53,6 +54,7 @@ function GamesSection({ selected, setSelected, openAuth }) {
         {selected === "rps" && <RPS />}
         {selected === "zip" && <Zip />}
         {selected === "cutFruit" && <CutTheFruit />}
+        {selected === "trexRunner" && <TRexRunner />}
       </div>
     </div>
   );
