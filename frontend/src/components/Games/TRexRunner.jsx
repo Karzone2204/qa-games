@@ -398,7 +398,7 @@ export default function TRexRunner() {
     setTimeout(() => {
       setShowResult(true);
     }, 250);
-  }, [best, playerName]);
+  }, [best]);
 
   const handleKeyPress = useCallback((e) => {
     const state = gameStateRef.current;
