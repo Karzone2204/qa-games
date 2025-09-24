@@ -9,6 +9,14 @@ import { fileURLToPath } from "url";
 import { ENVIRONMENTS, FEED_FILE_SUFFIXES } from "../config/dataGenConfig.js";
 import { transformSourcePayload, getBearerTokenViaPwsh, postRequestViaPwsh, postJsonViaPwsh } from "../services/dataGenService.js";
 
+// Simple deduplication cache to prevent duplicate data generation calls
+const recentCalls = new Map(); // key: hash of params, value: { timestamp, promise }
+const DEDUP_WINDOW_MS = 10000; // 10 seconds
+
+function getCallKey(environment, feed, requestType) {
+  return `${environment}_${feed}_${requestType}`;
+}
+
 /** Return app links by optional env/tag */
 export const getAppLinksTool = {
   name: "get_app_links",
@@ -91,9 +99,55 @@ export const dataGenGenerateOrderTool = {
     maxAttempts: z.number().int().min(1).max(10).optional()
   }),
   func: async ({ environment, feed, requestType, maxAttempts }) => {
+    // Add logging to track tool calls
+    const callId = Math.random().toString(36).slice(2, 8);
+    console.log(`[DataGenTool-${callId}] CALLED with env=${environment}, feed=${feed}, type=${requestType}, attempts=${maxAttempts}`);
+    
+    // Check for recent duplicate calls
+    const callKey = getCallKey(environment, feed, requestType || 'Order');
+    const now = Date.now();
+    
+    // Clean up old entries
+    for (const [key, entry] of recentCalls.entries()) {
+      if (now - entry.timestamp > DEDUP_WINDOW_MS) {
+        recentCalls.delete(key);
+      }
+    }
+    
+    // Check if we have a recent call for the same parameters
+    if (recentCalls.has(callKey)) {
+      const existingCall = recentCalls.get(callKey);
+      console.log(`[DataGenTool-${callId}] DUPLICATE DETECTED - returning existing result from ${now - existingCall.timestamp}ms ago`);
+      try {
+        return await existingCall.promise;
+      } catch (e) {
+        // If the existing call failed, remove it and proceed with new call
+        console.log(`[DataGenTool-${callId}] Previous call failed, proceeding with new call`);
+        recentCalls.delete(callKey);
+      }
+    }
+    
     if (process.env.DATA_GEN_ALLOW_PWSH !== '1') {
+      console.log(`[DataGenTool-${callId}] FAILED: PowerShell disabled`);
       throw new Error("PowerShell path disabled (DATA_GEN_ALLOW_PWSH!=1)");
     }
+    
+    // Create and cache the execution promise
+    const executionPromise = executeDataGeneration(callId, environment, feed, requestType, maxAttempts);
+    recentCalls.set(callKey, { timestamp: now, promise: executionPromise });
+    
+    try {
+      const result = await executionPromise;
+      return result;
+    } finally {
+      // Remove from cache after completion (successful or failed)
+      recentCalls.delete(callKey);
+    }
+  }
+};
+
+// Extract the main execution logic to a separate function
+async function executeDataGeneration(callId, environment, feed, requestType, maxAttempts) {
     const envCfg = ENVIRONMENTS[environment];
     if (!envCfg) throw new Error(`Unknown environment: ${environment}`);
     // Normalize feed to internal key
@@ -106,9 +160,9 @@ export const dataGenGenerateOrderTool = {
     const suffix = FEED_FILE_SUFFIXES[feedKey] || 'ATUser';
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
     const genRoot = path.resolve(__dirname, '../../generated');
-    const srcPath = path.join(genRoot, feedKey, requestType, `source_${suffix}.json`);
+    const srcPath = path.join(genRoot, feedKey, requestType || 'Order', `source_${suffix}.json`);
     if (!fs.existsSync(srcPath)) {
-      return { ok: false, available: false, message: `Source not found for ${feedKey}/${requestType} (${srcPath}).` };
+      return { ok: false, available: false, message: `Source not found for ${feedKey}/${requestType || 'Order'} (${srcPath}).` };
     }
     const raw = fs.readFileSync(srcPath, 'utf8');
     const source = JSON.parse(raw);
@@ -116,10 +170,13 @@ export const dataGenGenerateOrderTool = {
 
     // Submit via PowerShell using feed-specific credentials for token
   const token = await getBearerTokenViaPwsh(environment, undefined, feedKey);
+    console.log(`[DataGenTool-${callId}] Submitting order payload...`);
     const submitRes = await postRequestViaPwsh({ envKey: environment, payload, token });
     if (!submitRes.ok) {
+      console.log(`[DataGenTool-${callId}] SUBMIT FAILED: ${submitRes.status} - ${submitRes.data?.error || 'Submit failed'}`);
       return { ok: false, submitStatus: submitRes.status, error: submitRes.data?.error || 'Submit failed' };
     }
+    console.log(`[DataGenTool-${callId}] Submit successful, status: ${submitRes.status}`);
 
     // Derive LastName keyword from payload to poll
     function getLastName(obj){
@@ -201,9 +258,11 @@ export const dataGenGenerateOrderTool = {
       }
     }
     if (!found) {
+      console.log(`[DataGenTool-${callId}] ORDER NOT FOUND after ${totalAttempts} attempts with keywords: ${[keyword, ...fallbacks].filter(Boolean).join(', ')}`);
       return { ok:true, submitted:true, submitStatus: submitRes.status, polled:true, found:false, attempts: totalAttempts, tried: [keyword, ...fallbacks].filter(Boolean) };
     }
     const link = `https://ig-weu-tst-gateway-ui.azurewebsites.net/order/${found.id}/manage/dashboard`;
+    console.log(`[DataGenTool-${callId}] ORDER FOUND: id=${found.id}, ref=${found.orderReference}, keyword=${found.keyword}`);
     return { ok:true, submitted:true, submitStatus: submitRes.status, polled:true, found:true, id:found.id, orderReference: found.orderReference, link, keywordUsed: found.keyword };
   }
 };

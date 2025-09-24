@@ -151,17 +151,24 @@ router.post("/chat_sync", requireAuth, requireChatbotEnabled, async (req, res) =
       [];
 
     const toolMsgs = [];
+    console.log(`[LLM-Sync] About to execute ${toolCalls.length} tool calls`);
     for (const call of toolCalls) {
       const name = call?.name || call?.function?.name;
       const args = call?.args ?? call?.function?.arguments ?? {};
       const callId = call?.id || call?.tool_call_id || `call_${Math.random().toString(36).slice(2)}`;
       const def = toolByName[name];
-      if (!def) continue;
+      if (!def) {
+        console.log(`[LLM-Sync] Skipping unknown tool: ${name}`);
+        continue;
+      }
+      console.log(`[LLM-Sync] Executing tool: ${name} with callId: ${callId}`);
       try {
         const parsed = typeof args === "string" ? JSON.parse(args || "{}") : args;
         const result = await def.func(parsed);
+        console.log(`[LLM-Sync] Tool ${name} completed successfully`);
         toolMsgs.push(new ToolMessage({ tool_call_id: callId, content: JSON.stringify(result) }));
       } catch (e) {
+        console.log(`[LLM-Sync] Tool ${name} failed: ${e.message}`);
         toolMsgs.push(
           new ToolMessage({ tool_call_id: callId, content: JSON.stringify({ error: e?.message || "tool failed" }) })
         );
@@ -355,21 +362,35 @@ router.post("/chat", requireAuth, requireChatbotEnabled, async (req, res) => {
       [];
 
     safeWrite(`event: info\ndata: {"phase":"tool-calls","count":${toolCalls.length}}\n\n`);
+    
+    // Log detailed tool call information
+    console.log(`[LLM-Chat] Tool calls extracted:`, toolCalls.map(call => ({
+      name: call?.name || call?.function?.name,
+      id: call?.id || call?.tool_call_id,
+      args: call?.args ?? call?.function?.arguments
+    })));
 
     // ========== EXECUTE TOOLS ==========
     const toolMsgs = [];
+    console.log(`[LLM-Chat] About to execute ${toolCalls.length} tool calls`);
     for (const call of toolCalls) {
       const name = call?.name || call?.function?.name;
       const args = call?.args ?? call?.function?.arguments ?? {};
       const callId = call?.id || call?.tool_call_id || `call_${Math.random().toString(36).slice(2)}`;
       const def = toolByName[name];
-      if (!def) continue;
+      if (!def) {
+        console.log(`[LLM-Chat] Skipping unknown tool: ${name}`);
+        continue;
+      }
+      console.log(`[LLM-Chat] Executing tool: ${name} with callId: ${callId}`);
       try {
         const parsed = typeof args === "string" ? JSON.parse(args || "{}") : args;
   // Allow long-running tools (DataGen submit+poll can take up to ~60s)
   const result = await withTimeout(def.func(parsed), 90000, `tool:${name}`);
+        console.log(`[LLM-Chat] Tool ${name} completed successfully`);
         toolMsgs.push(new ToolMessage({ tool_call_id: callId, content: JSON.stringify(result) }));
       } catch (e) {
+        console.log(`[LLM-Chat] Tool ${name} failed: ${e.message}`);
         toolMsgs.push(new ToolMessage({ tool_call_id: callId, content: JSON.stringify({ error: e?.message || "tool failed" }) }));
       }
     }
