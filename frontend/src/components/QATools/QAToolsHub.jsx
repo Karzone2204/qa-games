@@ -3,6 +3,7 @@ import TestCaseGen from "./TestCaseGen.jsx";
 import DataGen from "./DataGen.jsx";
 import AppLinks from "./AppLinks.jsx";
 import ConfluenceDebug from "./ConfluenceDebug.jsx";
+import PipelineStatus from "./PipelineStatus.jsx";
 
 export default function QAToolsHub(){
   const [tab, setTab] = useState("cases");
@@ -15,11 +16,13 @@ export default function QAToolsHub(){
       <div className="nav-tabs" style={{marginBottom:16}}>
         <Tab id="cases">🧩 Test Case Generator</Tab>
         <Tab id="data">🧪 Data Generator</Tab>
+        <Tab id="pipelines">🚀 Pipeline Status</Tab>
         <Tab id="links">🔗 App Links</Tab>
         <Tab id="conf">📄 Confluence Search (debug)</Tab>
       </div>
       {tab === "cases" && <TestCaseGen />}
       {tab === "data"  && <DataGen />}
+      {tab === "pipelines" && <PipelineStatus />}
       {tab === "links" && <AppLinks />}
       {tab === "conf"  && <ConfluenceDebug />}
     </div>

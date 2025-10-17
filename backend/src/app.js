@@ -43,6 +43,7 @@ import gameRoutes from "./routes/games.js";
 import scoresRoutes from "./routes/scores.js";
 import dataGenRoutes from "./routes/dataGen.js";
 import adminRoutes from "./routes/admin.js";
+import pipelineRoutes from "./routes/pipelines.js";
 import { initSocket } from "./services/socketService.js";
 import { getSeasonConfig } from "./services/seasonService.js";
 import { requireAuth } from "./middleware/auth.js";
@@ -145,6 +146,7 @@ app.use("/llm", llmRoutes);
 app.use("/tools", toolsRoutes);
 app.use("/datagen", dataGenRoutes);
 app.use("/scores", scoresRoutes);
+app.use("/api/pipelines", pipelineRoutes);
 
 app.use(cookieParser());
 app.get("/", (_req, res) => res.json({ ok: true, service: "qa-break-room-api" }));

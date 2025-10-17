@@ -5,6 +5,7 @@ const SeasonTab = lazy(() => import("./tabs/SeasonTab.jsx"));
 const FeaturesTab = lazy(() => import("./tabs/FeaturesTab.jsx"));
 const AuthTab = lazy(() => import("./tabs/AuthTab.jsx"));
 const UsersTab = lazy(() => import("./tabs/UsersTab.jsx"));
+const PipelinesTab = lazy(() => import("./tabs/PipelinesTab.jsx"));
 
 export default function SeasonAdmin(){
   const tabs = [
@@ -19,6 +20,9 @@ export default function SeasonAdmin(){
     )},
     { key: 'users', title: 'Users', render: () => (
       <Suspense fallback={<div>Loading users…</div>}><UsersTab /></Suspense>
+    )},
+    { key: 'pipelines', title: 'Pipelines', render: () => (
+      <Suspense fallback={<div>Loading pipelines…</div>}><PipelinesTab /></Suspense>
     )},
   ];
 

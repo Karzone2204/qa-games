@@ -12,7 +12,7 @@ This repo contains a small full‑stack app used by a QA team for practice and i
 ## Authentication & Authorization
 - Signup/Login endpoints: `POST /auth/signup`, `POST /auth/login`.
 - Passwords: hashed with `bcryptjs` on the server.
-- JWT: issued with `jsonwebtoken`; configured in `backend/src/config/auth.js`.
+aaw3- JWT: issued with `jsonwebtoken`; configured in `backend/src/config/auth.js`.
   - Payload includes `id`, `email`, `role`, and `name`.
   - Expiration: `7d`.
 - Allowed email domain: requests are accepted only for emails under `ALLOWED_EMAIL_DOMAIN` (exact match or its subdomains). Enforced in both controller and middleware.
@@ -36,7 +36,7 @@ Relevant files:
   - Entry: `backend/src/app.js`
   - MongoDB via Mongoose (scores, settings, resource links)
   - Socket.IO for realtime presence/notifications (`services/socketService.js`)
-  - LangChain for LLM orchestration, OpenAI/Azure clients in `llm/clients.js`
+  - a333333333333333333333333333333333333333333333in for LLM orchestration, OpenAI/Azure clients in `llm/clients.js`
 - Middleware & libs: `cors`, `cookie-parser`, `dotenv`, `zod`, `jsonwebtoken`, `bcryptjs`
 
 ---
@@ -67,7 +67,8 @@ Data flow (high‑level):
 ```
 [React Chatbot UI]
    ⬇ streams via fetch(SSE)
-[Backend /llm/chat]  --(requireAuth + requireChatbotEnabled)-->  [LangChain Chat Model]
+[Backend /llm/chat]  --(requireAuth + requireChatbotEnabled)-->  [--
+in Chat Model]
                                    │
                                    ├─ Tools: get_app_links, qa_docs_search, confluence_search, datagen_generate_order
                                    │

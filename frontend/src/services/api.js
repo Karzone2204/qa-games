@@ -243,6 +243,63 @@ export const api = {
       method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ email, token, newPassword })
     });
     return handle(r);
+  },
+
+  // Pipeline management methods
+  async pipelinesGetAll(){
+    const r = await fetch(`${BASE}/api/pipelines/status`, { headers:{ Authorization: `Bearer ${token()}` } });
+    return handle(r);
+  },
+  async pipelinesGetByProject(project){
+    const r = await fetch(`${BASE}/api/pipelines/status/project/${encodeURIComponent(project)}`, { headers:{ Authorization: `Bearer ${token()}` } });
+    return handle(r);
+  },
+  async pipelinesGetById(id){
+    const r = await fetch(`${BASE}/api/pipelines/${id}`, { headers:{ Authorization: `Bearer ${token()}` } });
+    return handle(r);
+  },
+  async pipelinesCreate(data){
+    const r = await fetch(`${BASE}/api/pipelines`, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', Authorization: `Bearer ${token()}` },
+      body: JSON.stringify(data)
+    });
+    return handle(r);
+  },
+  async pipelinesUpdate(id, data){
+    const r = await fetch(`${BASE}/api/pipelines/${id}`, {
+      method:'PUT',
+      headers:{ 'Content-Type':'application/json', Authorization: `Bearer ${token()}` },
+      body: JSON.stringify(data)
+    });
+    return handle(r);
+  },
+  async pipelinesDelete(id){
+    const r = await fetch(`${BASE}/api/pipelines/${id}`, {
+      method:'DELETE',
+      headers:{ Authorization: `Bearer ${token()}` }
+    });
+    return handle(r);
+  },
+  async pipelinesSync(id){
+    const r = await fetch(`${BASE}/api/pipelines/${id}/sync`, {
+      method:'POST',
+      headers:{ Authorization: `Bearer ${token()}` }
+    });
+    return handle(r);
+  },
+  async pipelinesSyncAll(){
+    const r = await fetch(`${BASE}/api/pipelines/sync/all`, {
+      method:'POST',
+      headers:{ Authorization: `Bearer ${token()}` }
+    });
+    return handle(r);
+  },
+  async pipelinesTestConnection(){
+    const r = await fetch(`${BASE}/api/pipelines/test-connection`, {
+      headers:{ Authorization: `Bearer ${token()}` }
+    });
+    return handle(r);
   }
 };
 
